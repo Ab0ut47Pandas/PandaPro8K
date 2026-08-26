@@ -967,7 +967,7 @@ internal sealed class MainForm : Form
             string selected = FormatOutputRate(rateHz);
             DialogResult result = MessageBox.Show(
                 this,
-                $"{selected} is an experimental virtual output target. Previous 4,000 and 5,000 Hz tests produced intermittent phantom trigger input through Steam Input.\n\nThe change takes effect immediately. Restart Panda Pro 8K afterward if you also want Steam launched with the matching controller_rate interval.\n\nUse {selected} anyway?",
+                $"{selected} is an experimental virtual output target. Battlefield 6 is excluded from rate testing because its phantom firing was reproduced with Panda completely stopped. High-rate output still needs validation in unaffected games and on more PCs.\n\nThe change takes effect immediately. Restart Panda Pro 8K afterward if you also want Steam launched with the matching controller_rate interval.\n\nUse {selected} anyway?",
                 "Experimental output rate",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning,

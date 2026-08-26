@@ -163,3 +163,13 @@ No raw vendor configuration writes have been sent in Logo+A. Polling register `0
 - The commonly suggested Steam Input analog-trigger workaround was reported to work briefly and then fail again, matching the local right-trigger-disabled layout test.
 - Some players report success after installing Steam's Xbox Extended Feature Support driver, while others report the opposite. It is an optional Battlefield workaround, not a Panda dependency or a confirmed fix.
 - Battlefield 6 is removed from the Panda rate-validation matrix. Insurgency: Sandstorm is the first unaffected FPS selected for the 8,000 Hz target test.
+
+## 2026-08-26 — Fixed-rate output clock
+
+- ControllerMeta showed about 1,200 Hz while Panda was configured for an 8,000 Hz target.
+- Live logs showed the physical XInput packet counter reaching 7,559 changes/s under motion, while v0.4.0 virtual submissions varied with source activity and peaked at 5,088/s in the sampled windows.
+- Code inspection found that output was only attempted after a new XInput or enhanced packet. The target limited those event-driven attempts instead of driving an independent clock.
+- Gave virtual output an independent schedule inside the physical capture worker. It now repeats the latest complete state at the selected fixed cadence without adding a second busy worker.
+- The final single-worker 8,000 Hz build held 7,969, 8,011, 8,022, 8,024, and 8,020 submissions/s in consecutive five-second idle windows. Steam was running with `+controller_rate 125`.
+- A five-second process sample measured 1.11 CPU-seconds per wall-clock second and 103.7 MB working memory. The high-rate mode currently costs about one logical CPU core on the development PC.
+- ControllerMeta remains an end-consumer changed-value measurement. It is not treated as a raw count of Panda submissions or distinct physical samples.

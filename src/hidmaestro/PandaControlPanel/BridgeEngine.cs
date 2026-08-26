@@ -421,7 +421,7 @@ internal sealed class BridgeEngine : IAsyncDisposable
         long seenRescan = Interlocked.Read(ref _sourceRescanSequence);
         long nextDisconnectedScan = 0;
         long nextVirtualSubmit = 0;
-
+        int activeOutputRate = int.MinValue;
         var axes = new Dictionary<HMAxis, float>
         {
             [HMAxis.X] = 0.5f,
@@ -493,16 +493,6 @@ internal sealed class BridgeEngine : IAsyncDisposable
             long currentEnhanced = Interlocked.Read(ref _enhancedSequence);
             bool newEnhanced = currentEnhanced != lastEnhanced;
 
-            if (!newPacket && !newEnhanced)
-            {
-                // Render/UI work never happens here. Yield periodically so
-                // the 8K capture loop does not monopolize a CPU core.
-                if ((++idlePasses & 0x0F) == 0) Thread.Yield();
-                else Thread.SpinWait(24);
-                continue;
-            }
-            idlePasses = 0;
-
             if (newPacket)
             {
                 Interlocked.Increment(ref _xinputPackets);
@@ -521,57 +511,91 @@ internal sealed class BridgeEngine : IAsyncDisposable
                 lock (_physicalGate) _physical = physical;
             }
             lastEnhanced = currentEnhanced;
-
-            axes[HMAxis.X] = Normalize(physical.Gamepad.LeftThumbX);
-            axes[HMAxis.Y] = NormalizeY(physical.Gamepad.LeftThumbY);
-            axes[HMAxis.Z] = Normalize(physical.Gamepad.RightThumbX);
-            axes[HMAxis.Rz] = NormalizeY(physical.Gamepad.RightThumbY);
-            axes[HMAxis.Rx] = physical.Gamepad.LeftTrigger / 255f;
-            axes[HMAxis.Ry] = physical.Gamepad.RightTrigger / 255f;
-
-            byte extras;
-            short gyroPitch, gyroYaw, gyroRoll, accelX, accelY, accelZ;
-            lock (_enhancedGate)
+            int rateHz = Volatile.Read(ref _virtualOutputRateHz);
+            long submitTime = Stopwatch.GetTimestamp();
+            if (rateHz != activeOutputRate)
             {
-                extras = _extras;
-                gyroPitch = ReadLe16(_imu, 0);
-                gyroYaw = ReadLe16(_imu, 2);
-                gyroRoll = ReadLe16(_imu, 4);
-                accelX = ReadLe16(_imu, 6);
-                accelY = ReadLe16(_imu, 8);
-                accelZ = ReadLe16(_imu, 10);
+                activeOutputRate = rateHz;
+                nextVirtualSubmit = submitTime;
             }
 
-            HMButton buttons = MapButtons(physical.Gamepad.Buttons);
-            if ((extras & 0x01) != 0) buttons |= HMButton.LeftPaddle;
-            if ((extras & 0x02) != 0) buttons |= HMButton.RightPaddle;
-            if ((extras & 0x04) != 0) buttons |= HMButton.LeftPaddle2;
-            if ((extras & 0x08) != 0) buttons |= HMButton.RightPaddle2;
-
-            var state = new HMGamepadState
+            if (rateHz != 0 && submitTime < nextVirtualSubmit)
             {
-                Axes = axes,
-                Buttons = buttons,
-                Hat = MapHat(physical.Gamepad.Buttons),
-                GyroPitch = gyroPitch,
-                GyroYaw = gyroYaw,
-                GyroRoll = gyroRoll,
-                AccelX = accelX,
-                AccelY = accelY,
-                AccelZ = accelZ,
-                SensorTimestamp = unchecked((uint)((Stopwatch.GetTimestamp() - sensorEpoch) * 3_000_000L / Stopwatch.Frequency)),
-                BatteryLevel = 10,
-            };
+                if (!newPacket && !newEnhanced)
+                {
+                    // Capture and output share this high-rate loop. Yielding
+                    // between scheduled frames keeps the UI responsive
+                    // without adding a second busy worker.
+                    if ((++idlePasses & 0x0F) == 0) Thread.Yield();
+                    else Thread.SpinWait(24);
+                }
+                continue;
+            }
+            idlePasses = 0;
 
-            long submitTime = Stopwatch.GetTimestamp();
-            if (submitTime < nextVirtualSubmit) continue;
+            SubmitCurrentVirtualState(in physical, axes, sensorEpoch);
 
-            SubmitVirtualState(in state);
-            int outputRateHz = Volatile.Read(ref _virtualOutputRateHz);
-            nextVirtualSubmit = outputRateHz == 0
-                ? 0
-                : submitTime + Math.Max(1, Stopwatch.Frequency / outputRateHz);
+            if (rateHz == 0)
+            {
+                nextVirtualSubmit = 0;
+                continue;
+            }
+
+            long interval = Math.Max(1, Stopwatch.Frequency / rateHz);
+            nextVirtualSubmit += interval;
+            long submittedAt = Stopwatch.GetTimestamp();
+            if (submittedAt - nextVirtualSubmit > interval * 2)
+                nextVirtualSubmit = submittedAt + interval;
         }
+    }
+
+    private void SubmitCurrentVirtualState(
+        in XInputState physical,
+        Dictionary<HMAxis, float> axes,
+        long sensorEpoch)
+    {
+        axes[HMAxis.X] = Normalize(physical.Gamepad.LeftThumbX);
+        axes[HMAxis.Y] = NormalizeY(physical.Gamepad.LeftThumbY);
+        axes[HMAxis.Z] = Normalize(physical.Gamepad.RightThumbX);
+        axes[HMAxis.Rz] = NormalizeY(physical.Gamepad.RightThumbY);
+        axes[HMAxis.Rx] = physical.Gamepad.LeftTrigger / 255f;
+        axes[HMAxis.Ry] = physical.Gamepad.RightTrigger / 255f;
+
+        byte extras;
+        short gyroPitch, gyroYaw, gyroRoll, accelX, accelY, accelZ;
+        lock (_enhancedGate)
+        {
+            extras = _extras;
+            gyroPitch = ReadLe16(_imu, 0);
+            gyroYaw = ReadLe16(_imu, 2);
+            gyroRoll = ReadLe16(_imu, 4);
+            accelX = ReadLe16(_imu, 6);
+            accelY = ReadLe16(_imu, 8);
+            accelZ = ReadLe16(_imu, 10);
+        }
+
+        HMButton buttons = MapButtons(physical.Gamepad.Buttons);
+        if ((extras & 0x01) != 0) buttons |= HMButton.LeftPaddle;
+        if ((extras & 0x02) != 0) buttons |= HMButton.RightPaddle;
+        if ((extras & 0x04) != 0) buttons |= HMButton.LeftPaddle2;
+        if ((extras & 0x08) != 0) buttons |= HMButton.RightPaddle2;
+
+        var state = new HMGamepadState
+        {
+            Axes = axes,
+            Buttons = buttons,
+            Hat = MapHat(physical.Gamepad.Buttons),
+            GyroPitch = gyroPitch,
+            GyroYaw = gyroYaw,
+            GyroRoll = gyroRoll,
+            AccelX = accelX,
+            AccelY = accelY,
+            AccelZ = accelZ,
+            SensorTimestamp = unchecked((uint)((Stopwatch.GetTimestamp() - sensorEpoch) * 3_000_000L / Stopwatch.Frequency)),
+            BatteryLevel = 10,
+        };
+
+        SubmitVirtualState(in state);
     }
 
     private async Task MetricsLogPumpAsync(CancellationToken token)

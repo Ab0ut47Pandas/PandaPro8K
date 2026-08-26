@@ -16,11 +16,16 @@ The bridge is usable on the development controller, but it should still be treat
 - HidHide keeps the physical GameSir and virtual Edge away from games while Steam remains allowlisted.
 - Steam Input can then expose its normal Xbox output to games, so games generally retain Xbox button prompts.
 - Physical XInput is read at the full rate supplied by the controller. Virtual output can be switched live between 250, 500, 1,000, 2,000, 4,000, 5,000, and 8,000 Hz, or left uncapped. The selected rate is saved for the next launch.
+- Since v0.4.1, virtual output has its own fixed-rate clock. It repeats the latest complete state at the selected target instead of waiting for another changed source packet. The **Virtual submits** card and logs show this actual submission cadence.
 - Disconnect/reconnect handling recreates the virtual controller and restarts the enhanced reader without intentionally restarting Steam.
 
 Battlefield 6 is no longer being used as a bridge-stability test. Its phantom firing occurred with Panda stopped, no virtual DualSense present, and the physical controller connected directly to Steam in Logo+A mode. An independent SDL trace held both physical triggers at zero with no button transitions during the failure. Players have reported the same Battlefield behavior with [Steam, PlayStation, Xbox, Nacon, 8BitDo, and GameSir controllers](https://forums.ea.com/idea/battlefield-6-bug-reports-en/steam-controller-randomly-shoots-on-its-own-/13521083), and EA has said those reports were forwarded to the game team. The 4,000 and 5,000 Hz sessions happened to expose the Battlefield bug, but they did not cause it.
 
 Rates above 1,000 Hz remain experimental because the complete matrix still needs to be repeated in unaffected games and on more PCs. That is a validation gap, not evidence that high-rate Panda output caused Battlefield's phantom trigger.
+
+Browser polling pages and stick-rate testers often report fewer events because they count changed values after Steam Input rather than every virtual HID submission. A lower number there does not override Panda's submission counter, and Panda's counter does not claim that the physical stick produced that many distinct positions. Source freshness and output cadence are separate measurements.
+
+The 8,000 Hz preset is intentionally CPU-heavy: the development PC used about one logical CPU core to poll XInput and service the virtual clock. Lower targets and future scheduler work may reduce that cost; testers should record CPU use alongside rate results.
 
 ## Requirements
 

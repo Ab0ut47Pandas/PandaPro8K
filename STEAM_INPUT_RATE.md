@@ -8,6 +8,8 @@ There are three different rates in this project, and treating them as one number
 
 The GameSir controller remains configured for its advertised high-rate mode. Panda reads XInput continuously and keeps the latest state. The public bridge defaults to 1,000 Hz virtual output but exposes 250, 500, 1,000, 2,000, 4,000, 5,000, and 8,000 Hz presets plus an uncapped mode. The enhanced HID side channel is slower, about 217–222 fresh reports per second, so paddles and motion data update at that source rate.
 
+In v0.4.0 the selected virtual rate acted as a ceiling on event-driven submissions. That made the observed output depend on how often the physical or enhanced state changed. v0.4.1 separates capture from output: a dedicated clock submits the latest complete state at the selected cadence, including repeated states. This makes the selected target and the **Virtual submits** counter directly comparable without pretending every repeated report contains a new physical sample.
+
 ## What was tested
 
 - A 1,000 Hz virtual-output target remained stable during the original Battlefield test.
@@ -47,5 +49,7 @@ That leaves an important controlled test unfinished: match Steam's processing in
 The release launcher reads Panda's saved output target and starts Steam with the corresponding `+controller_rate` value. Changing the rate while the bridge is already running updates Panda immediately, but Steam keeps the interval from the beginning of its current session. Restart through the Panda desktop shortcut before recording a matched-rate test.
 
 Every preset is a target rather than a promise that the complete path will achieve that number. The app's **Virtual submits** card and copied diagnostics record what Panda actually delivered. Testers should also record the game, connection type, GameSir firmware and hardware setting, Steam version, frame rate, and whether the failure survives in a second game.
+
+ControllerMeta, Gamepadla-style stick tests, and browser Gamepad API pages can report a lower number because they observe changed values after another input layer. They are useful end-consumer measurements, but they are not raw counters of Panda-to-HIDMaestro submissions.
 
 Until the matched-rate tests are repeated across more than one unaffected game and PC, 1,000 Hz remains the conservative default. Battlefield results do not change that recommendation in either direction.

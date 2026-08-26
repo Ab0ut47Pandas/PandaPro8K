@@ -89,3 +89,12 @@ On the tested controller and firmware, Logo+A exposes a genuine **~1 kHz raw HID
 - **CONFIRMED BY EXTERNAL REPORTS:** Battlefield players have reproduced the same firing, sprint failure, and input-glyph switching with multiple unrelated controller brands. EA acknowledged the reports and said they were forwarded to the game team.
 - **TESTING CONSEQUENCE:** Battlefield 6 is excluded from Panda rate pass/fail testing. The adjustable-rate matrix must be run in unaffected games.
 - **UNKNOWN:** The exact Battlefield-side mechanism. Steam Input interaction and the game's controller handling remain plausible; anti-cheat explanations posted by players are unconfirmed.
+
+## Fixed-rate virtual output validation (2026-08-26)
+
+- **CONFIRMED BY CODE INSPECTION:** v0.4.0 only submitted after a new XInput or enhanced packet, so the selected rate was a ceiling rather than an independent output cadence.
+- **CONFIRMED BY LOCAL BUILD TEST:** v0.4.1 services input capture and virtual submission on independent schedules within one high-rate worker. The output clock repeats the latest complete state at the selected fixed rate without adding a second busy worker.
+- **CONFIRMED BY LIVE LOG:** With an 8,000 Hz target and the physical controller untouched, the final single-worker build measured 7,969, 8,011, 8,022, 8,024, and 8,020 virtual submissions per second in consecutive five-second windows.
+- **CONFIRMED BY PROCESS INSPECTION:** Steam was launched with `+controller_rate 125` for the same run.
+- **CONFIRMED BY PROCESS SAMPLE:** The 8,000 Hz bridge used 1.11 CPU-seconds per wall-clock second and 103.7 MB of working memory during a five-second idle sample on the development PC. That is roughly one logical CPU core and should be treated as a current cost of the high-rate mode.
+- **INTERPRETATION:** This proves Panda's application-level submission cadence. It does not prove 8,000 distinct physical stick samples, 8,000 Steam Input state changes, or an 8 kHz browser callback rate.

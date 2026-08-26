@@ -25,7 +25,7 @@ Do not switch rates during the actual run. Live switching is available for diagn
 | 2,000 Hz | 500 µs | Open | Open | Open |
 | 4,000 Hz | 250 µs | Open | Open | Open |
 | 5,000 Hz | 200 µs | Open | Open | Open |
-| 8,000 Hz | 125 µs | In progress | Open | Open |
+| 8,000 Hz | 125 µs | Output clock verified; game run open | Open | Open |
 | Uncapped | 0 | Open | Open | Open |
 
 ## Minimum run
@@ -51,6 +51,7 @@ Observed virtual-submit rate while moving:
 Steam version/channel:
 Game and version:
 Average game frame rate:
+Panda CPU use:
 Duration:
 Reconnect performed: yes/no
 Result: pass/fail
@@ -59,3 +60,5 @@ Log filename:
 ```
 
 Stick-change and trigger-change counters are movement-dependent. They are useful for comparing the source data during the same motion, but they are not substitutes for the **Virtual submits** rate or a raw USB endpoint measurement.
+
+ControllerMeta and similar pages may count only values that changed after Steam Input. Record their result, but do not label it the virtual HID submission rate. The Panda log is the source for bridge submissions; raw capture is the source for physical USB transport.
