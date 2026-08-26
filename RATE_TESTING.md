@@ -2,6 +2,8 @@
 
 The rate selector is intended to turn the earlier one-off builds into a repeatable test matrix. A result is useful only when the physical controller setting, Panda target, Steam interval, game, and connection type are recorded together.
 
+Battlefield 6 is excluded from this matrix. It reproduced the same phantom firing with Panda stopped, no virtual controller present, and neutral physical trigger traces. Public reports show the same game bug across several unrelated controller brands. Battlefield can still be used to reproduce the game defect, but it cannot pass or fail a Panda output rate.
+
 ## Before each run
 
 1. Close the game.
@@ -15,15 +17,15 @@ Do not switch rates during the actual run. Live switching is available for diagn
 
 ## Matrix
 
-| Panda target | Steam interval | Battlefield | Second Steam Input game | Reconnect test |
+| Panda target | Steam interval | Insurgency: Sandstorm | Second unaffected Steam Input game | Reconnect test |
 |---:|---:|---|---|---|
 | 250 Hz | 4,000 µs | Open | Open | Open |
 | 500 Hz | 2,000 µs | Open | Open | Open |
-| 1,000 Hz | 1,000 µs | Previously stable; repeat matched | Open | Open |
+| 1,000 Hz | 1,000 µs | Open | Open | Open |
 | 2,000 Hz | 500 µs | Open | Open | Open |
-| 4,000 Hz | 250 µs | Phantom symptom seen; also reproduced without Panda | Open | Open |
-| 5,000 Hz | 200 µs | Phantom symptom seen; also reproduced without Panda | Open | Open |
-| 8,000 Hz | 125 µs | Open | Open | Open |
+| 4,000 Hz | 250 µs | Open | Open | Open |
+| 5,000 Hz | 200 µs | Open | Open | Open |
+| 8,000 Hz | 125 µs | In progress | Open | Open |
 | Uncapped | 0 | Open | Open | Open |
 
 ## Minimum run
@@ -33,7 +35,7 @@ Do not switch rates during the actual run. Live switching is available for diagn
 - Both trigger-stop positions.
 - All four extra controls.
 - One controller power cycle or cable reconnect while Steam remains open.
-- At least one respawn or level transition, since the original phantom trigger often appeared when entering gameplay.
+- At least one respawn or level transition so game-state changes are covered.
 
 Stop the run immediately if a trigger or another control sticks. Alt-tab without touching the controller, copy Panda diagnostics, and preserve the newest log. Note the wall-clock time as closely as possible so the event can be lined up with the five-second rate entries.
 

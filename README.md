@@ -18,7 +18,9 @@ The bridge is usable on the development controller, but it should still be treat
 - Physical XInput is read at the full rate supplied by the controller. Virtual output can be switched live between 250, 500, 1,000, 2,000, 4,000, 5,000, and 8,000 Hz, or left uncapped. The selected rate is saved for the next launch.
 - Disconnect/reconnect handling recreates the virtual controller and restarts the enhanced reader without intentionally restarting Steam.
 
-The 1,000 Hz virtual-output setting was the stable test point. Experimental 4,000 and 5,000 Hz sessions coincided with intermittent stuck-trigger behavior in Battlefield even though simultaneous physical and virtual report traces showed a neutral right trigger. The same symptom was later reproduced with Panda stopped, no virtual DualSense present, and the physical controller connected directly to Steam in Logo+A mode. During that reproduction, an independent SDL trace held both physical triggers at zero with no button transitions. The failure therefore cannot currently be attributed to Panda's output rate. Higher settings remain available for controlled testing, but the app warns before enabling them and keeps 1,000 Hz as the default while the downstream Steam Input/Battlefield path is investigated.
+Battlefield 6 is no longer being used as a bridge-stability test. Its phantom firing occurred with Panda stopped, no virtual DualSense present, and the physical controller connected directly to Steam in Logo+A mode. An independent SDL trace held both physical triggers at zero with no button transitions during the failure. Players have reported the same Battlefield behavior with [Steam, PlayStation, Xbox, Nacon, 8BitDo, and GameSir controllers](https://forums.ea.com/idea/battlefield-6-bug-reports-en/steam-controller-randomly-shoots-on-its-own-/13521083), and EA has said those reports were forwarded to the game team. The 4,000 and 5,000 Hz sessions happened to expose the Battlefield bug, but they did not cause it.
+
+Rates above 1,000 Hz remain experimental because the complete matrix still needs to be repeated in unaffected games and on more PCs. That is a validation gap, not evidence that high-rate Panda output caused Battlefield's phantom trigger.
 
 ## Requirements
 
@@ -112,7 +114,7 @@ Raw captures and local diagnostic logs are deliberately excluded. They can conta
 - GameSir may change report behavior in future firmware.
 - Motion scale, polarity, and exact accelerometer axis order still need controlled calibration.
 - The virtual controller is a DualSense Edge because Steam already understands its extra inputs. Native games that bypass Steam Input may show PlayStation prompts or ignore Edge-only controls.
-- Steam's `controller_rate` setting and virtual rates above 1,000 Hz still need controlled testing across several games and systems. See [STEAM_INPUT_RATE.md](STEAM_INPUT_RATE.md).
+- Steam's `controller_rate` setting and virtual rates above 1,000 Hz still need controlled testing across several unaffected games and systems. Battlefield 6 is excluded from pass/fail rate testing. See [STEAM_INPUT_RATE.md](STEAM_INPUT_RATE.md).
 - There is no signed MSI/MSIX installer yet.
 
 ## Credits

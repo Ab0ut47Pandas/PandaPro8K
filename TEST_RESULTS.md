@@ -86,4 +86,6 @@ On the tested controller and firmware, Logo+A exposes a genuine **~1 kHz raw HID
 - **CONFIRMED BY SYNCHRONIZED TRACE:** No GameSir keyboard or mouse raw-input event occurred during the reproduction.
 - **CONFIRMED BY STEAM LOG:** Steam loaded its generic gamepad configuration for the Logo+A controller and mapped HID axes 4 and 5 to its left- and right-trigger groups.
 - **CONCLUSION:** Panda, HIDMaestro, the virtual DualSense Edge, and high virtual-output rate are not necessary for the phantom firing. The failure occurs downstream of a neutral physical controller state.
-- **UNKNOWN:** Whether Steam Input's generic-HID trigger conversion produces the bad logical state or Battlefield mishandles a correct translated state. A reversible right-trigger-disabled Steam layout and a second Steam Input game are the next isolation tests.
+- **CONFIRMED BY EXTERNAL REPORTS:** Battlefield players have reproduced the same firing, sprint failure, and input-glyph switching with multiple unrelated controller brands. EA acknowledged the reports and said they were forwarded to the game team.
+- **TESTING CONSEQUENCE:** Battlefield 6 is excluded from Panda rate pass/fail testing. The adjustable-rate matrix must be run in unaffected games.
+- **UNKNOWN:** The exact Battlefield-side mechanism. Steam Input interaction and the game's controller handling remain plausible; anti-cheat explanations posted by players are unconfirmed.

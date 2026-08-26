@@ -154,3 +154,12 @@ No raw vendor configuration writes have been sent in Logo+A. Polling register `0
 - A raw keyboard/mouse monitor saw no events from any GameSir collection. Recorded clicks belonged to the physical Logitech mouse used for alt-tab interaction.
 - Steam's controller log showed the Logo+A device using the generic gamepad profile with axes 4 and 5 mapped as LT and RT.
 - This control run rules out Panda's high-rate submission and DualSense report construction as necessary causes. Remaining isolation boundary: Steam Input's generic-HID trigger translation versus Battlefield's consumption of Steam's process-local controller output.
+
+## 2026-08-26 — Battlefield reports corroborate the control run
+
+- Located multiple Battlefield 6 reports matching the local symptom: untouched weapons firing, sprint failing, keyboard/controller glyphs alternating, and firing stopping when the controller is disconnected.
+- Reports cover Steam, PlayStation, Xbox, Nacon, 8BitDo, ROG Ally, and GameSir controllers rather than one bridge or virtual-device implementation.
+- An EA community manager stated that the reports were forwarded to the game team.
+- The commonly suggested Steam Input analog-trigger workaround was reported to work briefly and then fail again, matching the local right-trigger-disabled layout test.
+- Some players report success after installing Steam's Xbox Extended Feature Support driver, while others report the opposite. It is an optional Battlefield workaround, not a Panda dependency or a confirmed fix.
+- Battlefield 6 is removed from the Panda rate-validation matrix. Insurgency: Sandstorm is the first unaffected FPS selected for the 8,000 Hz target test.

@@ -18,7 +18,15 @@ The GameSir controller remains configured for its advertised high-rate mode. Pan
 - The phantom firing was subsequently reproduced with Panda stopped, no virtual Edge present, and the physical GameSir connected directly to Steam in Logo+A mode.
 - During the direct Logo+A reproduction, Battlefield was foreground while an independent SDL monitor reported both trigger axes at exactly zero, no buttons held, and no trigger or button transitions. A simultaneous raw-input trace contained no GameSir keyboard or mouse events.
 
-The evidence clears Panda's decoder, virtual report construction, and high virtual submission rate as necessary causes. It points downstream of the neutral hardware state, but does not yet distinguish Steam Input's generic-HID trigger translation from Battlefield's handling of Steam's translated controller state.
+The evidence clears Panda's decoder, virtual report construction, and high virtual submission rate as necessary causes. Independent Battlefield reports describe the same phantom firing, sprint failure, and keyboard/controller glyph switching with unrelated controllers. EA has acknowledged the reports and forwarded them to the game team. Battlefield 6 is therefore excluded from the rate-validation matrix.
+
+The exact Battlefield defect remains internal to the game, Steam Input interaction, or another part of that game's input stack. Claims that its anti-cheat deliberately generates the shots are unconfirmed and are not treated as a finding here.
+
+References:
+
+- [EA report: Steam Controller randomly shoots on its own](https://forums.ea.com/idea/battlefield-6-bug-reports-en/steam-controller-randomly-shoots-on-its-own-/13521083)
+- [EA report: weapons shoot on their own and inputs get jumbled](https://forums.ea.com/idea/battlefield-6-bug-reports-en/weapons-shoot-on-their-owninputs-get-jumbled-when-playing-with-a-controller/13596478)
+- [Steam report: controller stops working and gun fires on its own](https://steamcommunity.com/app/2807960/discussions/0/581677493394842103/)
 
 ## `controller_rate`
 
@@ -40,4 +48,4 @@ The release launcher reads Panda's saved output target and starts Steam with the
 
 Every preset is a target rather than a promise that the complete path will achieve that number. The app's **Virtual submits** card and copied diagnostics record what Panda actually delivered. Testers should also record the game, connection type, GameSir firmware and hardware setting, Steam version, frame rate, and whether the failure survives in a second game.
 
-Until the matched-rate tests are repeated across more than one game and PC, 1,000 Hz remains the conservative default.
+Until the matched-rate tests are repeated across more than one unaffected game and PC, 1,000 Hz remains the conservative default. Battlefield results do not change that recommendation in either direction.
