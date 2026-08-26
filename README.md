@@ -18,7 +18,7 @@ The bridge is usable on the development controller, but it should still be treat
 - Physical XInput is read at the full rate supplied by the controller. Virtual output can be switched live between 250, 500, 1,000, 2,000, 4,000, 5,000, and 8,000 Hz, or left uncapped. The selected rate is saved for the next launch.
 - Disconnect/reconnect handling recreates the virtual controller and restarts the enhanced reader without intentionally restarting Steam.
 
-The 1,000 Hz virtual-output setting was the stable test point. Experimental 4,000 and 5,000 Hz tests caused intermittent stuck-trigger behavior in Battlefield even though simultaneous physical and virtual report traces showed a neutral right trigger. The higher settings remain available for controlled testing, but the app warns before enabling them and keeps 1,000 Hz as the default.
+The 1,000 Hz virtual-output setting was the stable test point. Experimental 4,000 and 5,000 Hz sessions coincided with intermittent stuck-trigger behavior in Battlefield even though simultaneous physical and virtual report traces showed a neutral right trigger. The same symptom was later reproduced with Panda stopped, no virtual DualSense present, and the physical controller connected directly to Steam in Logo+A mode. During that reproduction, an independent SDL trace held both physical triggers at zero with no button transitions. The failure therefore cannot currently be attributed to Panda's output rate. Higher settings remain available for controlled testing, but the app warns before enabling them and keeps 1,000 Hz as the default while the downstream Steam Input/Battlefield path is investigated.
 
 ## Requirements
 

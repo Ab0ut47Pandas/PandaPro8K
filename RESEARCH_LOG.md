@@ -144,3 +144,13 @@ No raw vendor configuration writes have been sent in Logo+A. Polling register `0
 - Bypassing Steam Input and allowing the game to read the virtual Edge directly avoided the phantom firing, but the game did not consume the Edge-only controls. The evidence therefore points to the Steam conversion path rather than the GameSir decoder or Edge report builder.
 - Steam was launched without an explicit `controller_rate` argument during those tests. Matched Steam/virtual-output rate testing remains open; the distributable build keeps 1,000 Hz as its default.
 - The public control panel now exposes 250, 500, 1,000, 2,000, 4,000, 5,000, and 8,000 Hz virtual-output targets plus an uncapped mode. The setting persists in local app data, updates the bridge live, appears in diagnostics, and is translated into a matching Steam `controller_rate` argument on the next launcher restart. Rates above 1,000 Hz remain explicitly marked experimental.
+
+## 2026-08-26 — Phantom firing reproduced without Panda
+
+- Stopped Panda completely and switched the physical controller to Logo+A (`3537:10B8`) for direct Steam Input handling.
+- Process and PnP inspection confirmed no Panda process and no virtual DualSense Edge device.
+- Battlefield reproduced the same uncontrolled firing while the controller was untouched.
+- A synchronized SDL monitor reported LT and RT at exactly zero, no held buttons, and no trigger/button transitions throughout the reported firing interval.
+- A raw keyboard/mouse monitor saw no events from any GameSir collection. Recorded clicks belonged to the physical Logitech mouse used for alt-tab interaction.
+- Steam's controller log showed the Logo+A device using the generic gamepad profile with axes 4 and 5 mapped as LT and RT.
+- This control run rules out Panda's high-rate submission and DualSense report construction as necessary causes. Remaining isolation boundary: Steam Input's generic-HID trigger translation versus Battlefield's consumption of Steam's process-local controller output.

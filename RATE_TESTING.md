@@ -21,8 +21,8 @@ Do not switch rates during the actual run. Live switching is available for diagn
 | 500 Hz | 2,000 µs | Open | Open | Open |
 | 1,000 Hz | 1,000 µs | Previously stable; repeat matched | Open | Open |
 | 2,000 Hz | 500 µs | Open | Open | Open |
-| 4,000 Hz | 250 µs | Phantom trigger seen before matching | Open | Open |
-| 5,000 Hz | 200 µs | Phantom trigger seen before matching | Open | Open |
+| 4,000 Hz | 250 µs | Phantom symptom seen; also reproduced without Panda | Open | Open |
+| 5,000 Hz | 200 µs | Phantom symptom seen; also reproduced without Panda | Open | Open |
 | 8,000 Hz | 125 µs | Open | Open | Open |
 | Uncapped | 0 | Open | Open | Open |
 

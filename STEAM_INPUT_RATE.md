@@ -11,12 +11,14 @@ The GameSir controller remains configured for its advertised high-rate mode. Pan
 ## What was tested
 
 - A 1,000 Hz virtual-output target remained stable during the original Battlefield test.
-- A 5,000 Hz target produced intermittent phantom right-trigger behavior.
-- A 4,000 Hz target reproduced the same failure.
+- A 5,000 Hz session produced intermittent phantom right-trigger behavior.
+- A 4,000 Hz session reproduced the same symptom.
 - During the failures, simultaneous traces showed the physical GameSir right trigger at zero, the virtual Edge analog R2 value at zero, and the virtual Edge digital R2 bit clear.
 - The same native virtual Edge path was stable when Steam Input was bypassed, although the game then ignored Edge-specific inputs.
+- The phantom firing was subsequently reproduced with Panda stopped, no virtual Edge present, and the physical GameSir connected directly to Steam in Logo+A mode.
+- During the direct Logo+A reproduction, Battlefield was foreground while an independent SDL monitor reported both trigger axes at exactly zero, no buttons held, and no trigger or button transitions. A simultaneous raw-input trace contained no GameSir keyboard or mouse events.
 
-The evidence points downstream of the GameSir decoder and virtual report construction, but it does not yet identify the exact Steam failure.
+The evidence clears Panda's decoder, virtual report construction, and high virtual submission rate as necessary causes. It points downstream of the neutral hardware state, but does not yet distinguish Steam Input's generic-HID trigger translation from Battlefield's handling of Steam's translated controller state.
 
 ## `controller_rate`
 

@@ -27,6 +27,10 @@ microsoft-driver-samples/
 # Local deployment helpers
 tools/deploy-panda-v*.ps1
 
+# Python cache files
+__pycache__/
+*.pyc
+
 # Visual Studio and Windows
 .vs/
 *.user

@@ -76,3 +76,14 @@ On the tested controller and firmware, Logo+A exposes a genuine **~1 kHz raw HID
 - **CONFIRMED BY LOCAL HARDWARE TEST:** Every captured `0x12` report had a different 12-byte IMU vector in all three motion tests—no duplicated IMU vectors.
 - **CONFIRMED BY LOCAL HARDWARE TEST:** Observed fresh-vector rates were 217.12 Hz (yaw test), 218.25 Hz (pitch), and 218.33 Hz (roll), with median intervals of approximately 4.995–4.998 ms.
 - **UNKNOWN:** Physical units, scale factors, sign conventions, and exact accelerometer axis order require stationary six-orientation calibration.
+
+## Phantom-trigger control reproduction (2026-08-26)
+
+- **CONFIRMED BY LIVE PROCESS AND PNP INSPECTION:** Panda Pro 8K was not running and no virtual DualSense Edge was present.
+- **CONFIRMED BY LOCAL HARDWARE TEST:** The controller was connected directly to Steam in Logo+A mode as `3537:10B8` while Battlefield was running.
+- **CONFIRMED BY USER OBSERVATION:** Battlefield repeatedly fired without a physical trigger press, reproducing the symptom previously seen during 4,000 and 5,000 Hz bridge sessions.
+- **CONFIRMED BY SYNCHRONIZED TRACE:** Battlefield remained foreground during the reported firing interval while SDL exposed LT and RT as exactly `0.000000`, all buttons released, and no trigger, button, or hat transitions.
+- **CONFIRMED BY SYNCHRONIZED TRACE:** No GameSir keyboard or mouse raw-input event occurred during the reproduction.
+- **CONFIRMED BY STEAM LOG:** Steam loaded its generic gamepad configuration for the Logo+A controller and mapped HID axes 4 and 5 to its left- and right-trigger groups.
+- **CONCLUSION:** Panda, HIDMaestro, the virtual DualSense Edge, and high virtual-output rate are not necessary for the phantom firing. The failure occurs downstream of a neutral physical controller state.
+- **UNKNOWN:** Whether Steam Input's generic-HID trigger conversion produces the bad logical state or Battlefield mishandles a correct translated state. A reversible right-trigger-disabled Steam layout and a second Steam Input game are the next isolation tests.
