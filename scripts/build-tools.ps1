@@ -21,6 +21,7 @@ $projects = @(
     'AuxInputChangeCapture',
     'EdgeWireCapture',
     'GamepadRawCapture',
+    'PandaMappingCheck',
     'PhysicalXInputChangeCapture',
     'XInputChangeCapture'
 )

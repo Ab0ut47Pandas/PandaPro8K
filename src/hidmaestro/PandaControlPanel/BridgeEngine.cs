@@ -41,6 +41,7 @@ internal sealed class BridgeEngine : IAsyncDisposable
     private int _virtualRefreshActive;
     private uint _xinputSlot;
     private int _virtualOutputRateHz = 1000;
+    private int _swapFaceButtonPairs = 1;
 
     private long _xinputPackets;
     private long _stateChanges;
@@ -59,6 +60,7 @@ internal sealed class BridgeEngine : IAsyncDisposable
     public bool IsRunning => _stop is not null && !_stop.IsCancellationRequested;
     public uint? PreferredXInputSlot { get; set; }
     public int VirtualOutputRateHz => Volatile.Read(ref _virtualOutputRateHz);
+    public bool SwapFaceButtonPairs => Volatile.Read(ref _swapFaceButtonPairs) != 0;
     public string LogDirectory => Path.Combine(AppContext.BaseDirectory, "logs");
 
     public static bool IsXInputSlotConnected(uint slot) =>
@@ -74,6 +76,17 @@ internal sealed class BridgeEngine : IAsyncDisposable
 
         string label = rateHz == 0 ? "uncapped" : $"{rateHz:N0} Hz";
         Log($"Virtual Edge output target changed to {label}. The physical input loop is unchanged.");
+    }
+
+    public void SetFaceButtonSwap(bool enabled)
+    {
+        int next = enabled ? 1 : 0;
+        int previous = Interlocked.Exchange(ref _swapFaceButtonPairs, next);
+        if (previous == next || !IsRunning) return;
+
+        Log(enabled
+            ? "GameSir face-button correction enabled (A/B and X/Y pairs)."
+            : "GameSir face-button correction disabled; using raw XInput button bits.");
     }
 
     public async Task StartAsync()
@@ -574,7 +587,7 @@ internal sealed class BridgeEngine : IAsyncDisposable
             accelZ = ReadLe16(_imu, 10);
         }
 
-        HMButton buttons = MapButtons(physical.Gamepad.Buttons);
+        HMButton buttons = MapButtons(physical.Gamepad.Buttons, SwapFaceButtonPairs);
         if ((extras & 0x01) != 0) buttons |= HMButton.LeftPaddle;
         if ((extras & 0x02) != 0) buttons |= HMButton.RightPaddle;
         if ((extras & 0x04) != 0) buttons |= HMButton.LeftPaddle2;
@@ -940,16 +953,14 @@ internal sealed class BridgeEngine : IAsyncDisposable
 
     private static bool ShouldLogReconnectAttempt(long attempt) => attempt <= 5 || attempt % 20 == 0;
 
-    private static HMButton MapButtons(ushort b)
+    private static HMButton MapButtons(ushort rawButtons, bool swapFacePairs)
     {
+        ushort b = GameSirButtonMapping.NormalizePhysicalLabels(rawButtons, swapFacePairs);
         HMButton r = HMButton.None;
-        // Keep the source in Xbox semantic order. HIDMaestro's Sony profile
-        // performs the position-to-Cross/Circle/Square/Triangle conversion.
-        // Swapping here as well causes A/B and X/Y to be crossed in Steam.
-        if ((b & 0x1000) != 0) r |= HMButton.A;
-        if ((b & 0x2000) != 0) r |= HMButton.B;
-        if ((b & 0x4000) != 0) r |= HMButton.X;
-        if ((b & 0x8000) != 0) r |= HMButton.Y;
+        if ((b & GameSirButtonMapping.A) != 0) r |= HMButton.A;
+        if ((b & GameSirButtonMapping.B) != 0) r |= HMButton.B;
+        if ((b & GameSirButtonMapping.X) != 0) r |= HMButton.X;
+        if ((b & GameSirButtonMapping.Y) != 0) r |= HMButton.Y;
         if ((b & 0x0100) != 0) r |= HMButton.LeftBumper;
         if ((b & 0x0200) != 0) r |= HMButton.RightBumper;
         if ((b & 0x0020) != 0) r |= HMButton.Back;

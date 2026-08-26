@@ -99,6 +99,10 @@ All positional durations below are seconds.
 
 Early native XInput-plus-enhanced-HID proof. It finds GameSir report `0x12`, decodes the four extras and motion fields, and samples the XInput path. Source: `src/bridge/panda_probe.cpp`.
 
+### `PandaMappingCheck.exe`
+
+Runs the deterministic GameSir face-button normalization checks used by the bridge. It verifies the default printed-label correction, raw XInput mode, button chords, and preservation of non-face bits.
+
 ### `XInputChangeCapture.exe`
 
 Logs every observable XInput packet/state change across slots 0 through 3, with a one-second heartbeat while idle.

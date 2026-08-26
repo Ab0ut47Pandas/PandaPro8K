@@ -58,6 +58,8 @@ The Overview tab should report all four paths as connected:
 
 Move both sticks and triggers, then press the standard and extra buttons. The live controls should respond, including L4, R4, M1/L5, and M2/R5.
 
+The header defaults to **Face: GameSir labels**, which corrects the observed A/B and X/Y XInput pairs so the monitor and Steam follow the letters printed on the controller. If a different firmware or GameSir profile already reports conventional XInput face bits, select **Face: Raw XInput** instead.
+
 Steam should receive the combined virtual DualSense Edge instead of opening the physical GameSir as a second controller. Games using Steam Input normally receive Steam's Xbox output and keep Xbox prompts. Open a game's Steam controller layout to assign the four Edge inputs and gyro.
 
 ## 6. Output rate

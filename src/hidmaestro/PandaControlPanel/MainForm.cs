@@ -56,6 +56,8 @@ internal sealed class MainForm : Form
     private readonly ContextMenuStrip _inputSourceMenu = new();
     private readonly Button _outputRateButton = new();
     private readonly ContextMenuStrip _outputRateMenu = new();
+    private readonly Button _faceButtonLayoutButton = new();
+    private readonly ContextMenuStrip _faceButtonLayoutMenu = new();
     private readonly Button _overviewNav = new();
     private readonly Button _rawNav = new();
     private readonly Panel _overviewPage = new();
@@ -76,6 +78,7 @@ internal sealed class MainForm : Form
     {
         _steamFilterReady = steamFilterReady;
         _engine.SetVirtualOutputRate(_settings.VirtualOutputRateHz);
+        _engine.SetFaceButtonSwap(_settings.SwapFaceButtonPairs);
         Text = "Panda Pro 8K";
         StartPosition = FormStartPosition.CenterScreen;
         MinimumSize = new Size(980, 700);
@@ -160,17 +163,37 @@ internal sealed class MainForm : Form
             "Set the virtual Edge submission target. The physical GameSir input loop always runs at full speed. Steam uses the matching interval after the next launcher restart.");
         UpdateOutputRateButton();
 
+        _faceButtonLayoutButton.Size = new Size(190, 30);
+        _faceButtonLayoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        ConfigureActionButton(_faceButtonLayoutButton);
+        _faceButtonLayoutMenu.BackColor = InputBackground;
+        _faceButtonLayoutMenu.ForeColor = PrimaryText;
+        _faceButtonLayoutMenu.ShowImageMargin = false;
+        _faceButtonLayoutMenu.Renderer = new ToolStripProfessionalRenderer(new DarkMenuColorTable());
+        _faceButtonLayoutButton.Click += (_, _) =>
+        {
+            RefreshFaceButtonLayoutMenu();
+            _faceButtonLayoutMenu.Show(_faceButtonLayoutButton, new Point(0, _faceButtonLayoutButton.Height));
+        };
+        _toolTip.SetToolTip(
+            _faceButtonLayoutButton,
+            "GameSir labels corrects the observed A/B and X/Y XInput pairs. Raw XInput leaves all face bits untouched.");
+        UpdateFaceButtonLayoutButton();
+
         void PositionHeaderActions()
         {
             _bridgeStateLabel.Left = panel.ClientSize.Width - _bridgeStateLabel.Width - 22;
             _outputRateButton.Left = _bridgeStateLabel.Left - _outputRateButton.Width - 12;
             _outputRateButton.Top = 22;
+            _faceButtonLayoutButton.Left = _outputRateButton.Left - _faceButtonLayoutButton.Width - 12;
+            _faceButtonLayoutButton.Top = 22;
         }
 
         PositionHeaderActions();
         panel.Resize += (_, _) => PositionHeaderActions();
         panel.Controls.Add(title);
         panel.Controls.Add(subtitle);
+        panel.Controls.Add(_faceButtonLayoutButton);
         panel.Controls.Add(_outputRateButton);
         panel.Controls.Add(_bridgeStateLabel);
         return panel;
@@ -617,11 +640,11 @@ internal sealed class MainForm : Form
 
     private void UpdateControls(BridgeSnapshot s)
     {
-        ushort b = s.Buttons;
-        SetButton("A", (b & 0x1000) != 0);
-        SetButton("B", (b & 0x2000) != 0);
-        SetButton("X", (b & 0x4000) != 0);
-        SetButton("Y", (b & 0x8000) != 0);
+        ushort b = GameSirButtonMapping.NormalizePhysicalLabels(s.Buttons, _settings.SwapFaceButtonPairs);
+        SetButton("A", (b & GameSirButtonMapping.A) != 0);
+        SetButton("B", (b & GameSirButtonMapping.B) != 0);
+        SetButton("X", (b & GameSirButtonMapping.X) != 0);
+        SetButton("Y", (b & GameSirButtonMapping.Y) != 0);
         SetButton("LB", (b & 0x0100) != 0);
         SetButton("RB", (b & 0x0200) != 0);
         SetButton("Back", (b & 0x0020) != 0);
@@ -995,6 +1018,55 @@ internal sealed class MainForm : Form
 
     private void UpdateOutputRateButton() =>
         _outputRateButton.Text = $"Output: {FormatOutputRate(_settings.VirtualOutputRateHz)}  ▾";
+
+    private void RefreshFaceButtonLayoutMenu()
+    {
+        _faceButtonLayoutMenu.Items.Clear();
+        AddFaceButtonLayoutChoice("GameSir labels (correct A/B + X/Y)", true);
+        AddFaceButtonLayoutChoice("Raw XInput", false);
+    }
+
+    private void AddFaceButtonLayoutChoice(string label, bool swapFacePairs)
+    {
+        var item = new ToolStripMenuItem(label)
+        {
+            BackColor = InputBackground,
+            ForeColor = PrimaryText,
+            Checked = _settings.SwapFaceButtonPairs == swapFacePairs,
+            CheckOnClick = false,
+        };
+        item.Click += (_, _) => SelectFaceButtonLayout(swapFacePairs);
+        _faceButtonLayoutMenu.Items.Add(item);
+    }
+
+    private void SelectFaceButtonLayout(bool swapFacePairs)
+    {
+        if (_settings.SwapFaceButtonPairs == swapFacePairs) return;
+
+        bool previous = _settings.SwapFaceButtonPairs;
+        try
+        {
+            _settings.SwapFaceButtonPairs = swapFacePairs;
+            _settings.Save();
+            _engine.SetFaceButtonSwap(swapFacePairs);
+            UpdateFaceButtonLayoutButton();
+            RefreshFaceButtonLayoutMenu();
+            _footerStatus.Text = swapFacePairs
+                ? "Face buttons now follow the printed GameSir A/B/X/Y labels."
+                : "Face buttons now use the raw XInput bit order.";
+        }
+        catch (Exception ex)
+        {
+            _settings.SwapFaceButtonPairs = previous;
+            _engine.SetFaceButtonSwap(previous);
+            MessageBox.Show(this, ex.Message, "Face-button setting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void UpdateFaceButtonLayoutButton() =>
+        _faceButtonLayoutButton.Text = _settings.SwapFaceButtonPairs
+            ? "Face: GameSir labels  ▾"
+            : "Face: Raw XInput  ▾";
 
     private static string FormatOutputRate(int rateHz) =>
         rateHz == 0 ? "Uncapped" : $"{rateHz:N0} Hz";

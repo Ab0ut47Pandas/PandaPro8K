@@ -7,6 +7,7 @@ internal sealed class AppSettings
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public int VirtualOutputRateHz { get; set; } = 1000;
+    public bool SwapFaceButtonPairs { get; set; } = true;
 
     private static string SettingsDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PandaPro8K");

@@ -36,6 +36,10 @@ The Output menu in the app header changes the virtual report target. Rates
 above 1,000 Hz are experimental. Restart through this shortcut after changing
 the rate so Steam is launched with the matching controller_rate interval.
 
+The Face menu defaults to GameSir labels. This corrects the observed A/B and
+X/Y XInput pairs. Choose Raw XInput only if your firmware or profile already
+reports the printed face buttons correctly.
+
 Do not open PandaPro8K.exe directly. The launcher prepares Steam so it sees
 the combined virtual controller instead of both the virtual and physical pads.
 
