@@ -17,6 +17,7 @@ internal static class Program
     private static readonly long StartTicks = Stopwatch.GetTimestamp();
     private static DateTime _endUtc;
     private static nint _window;
+    private static bool _includeDevicePath;
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     private struct WindowClass
@@ -97,7 +98,9 @@ internal static class Program
     {
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
         Console.SetError(new StreamWriter(Console.OpenStandardError()) { AutoFlush = true });
-        int seconds = args.Length > 0 && int.TryParse(args[0], out int parsed) ? parsed : 300;
+        int seconds = args.Select(value => int.TryParse(value, out int parsed) ? parsed : -1)
+            .FirstOrDefault(value => value >= 0, 300);
+        _includeDevicePath = args.Contains("--include-device-path", StringComparer.OrdinalIgnoreCase);
         _endUtc = DateTime.UtcNow.AddSeconds(seconds);
 
         string className = $"PandaGamepadRawCapture_{Environment.ProcessId}";
@@ -181,11 +184,12 @@ internal static class Program
             nint device = IntPtr.Size == 8
                 ? (nint)BitConverter.ToInt64(buffer, 8)
                 : (nint)BitConverter.ToInt32(buffer, 8);
-            string deviceName = GetDeviceName(device);
-            if (!deviceName.Contains("VID_3537", StringComparison.OrdinalIgnoreCase))
+            string devicePath = GetDeviceName(device);
+            if (!devicePath.Contains("VID_3537", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
+            string deviceName = _includeDevicePath ? devicePath : PublicDeviceName(devicePath);
 
             int dataOffset = (int)headerSize;
             uint reportSize = BitConverter.ToUInt32(buffer, dataOffset);
@@ -255,6 +259,16 @@ internal static class Program
         StringBuilder name = new((int)characters + 1);
         uint copied = GetRawInputDeviceInfo(device, RidiDeviceName, name, ref characters);
         return DeviceNames[device] = copied == uint.MaxValue ? $"handle:{device}" : name.ToString();
+    }
+
+    private static string PublicDeviceName(string path)
+    {
+        string[] pieces = path.Split('#');
+        if (pieces.Length > 1 && pieces[1].Contains("VID_", StringComparison.OrdinalIgnoreCase))
+        {
+            return $"HID#{pieces[1]}";
+        }
+        return "GameSir HID <instance redacted>";
     }
 
     private static string Csv(string value) => $"\"{value.Replace("\"", "\"\"")}\"";

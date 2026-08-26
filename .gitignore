@@ -16,6 +16,7 @@ logs/
 # Local captures and machine-specific test data
 capture-*.json
 *.pcap
+captures/local/
 hub-probes/
 hub-probes-elevated/
 

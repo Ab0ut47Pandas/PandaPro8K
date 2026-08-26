@@ -110,7 +110,9 @@ internal static class Program
     {
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
         Console.SetError(new StreamWriter(Console.OpenStandardError()) { AutoFlush = true });
-        int seconds = args.Length > 0 && int.TryParse(args[0], out int parsed) ? parsed : 10;
+        int seconds = args.Select(value => int.TryParse(value, out int parsed) ? parsed : -1)
+            .FirstOrDefault(value => value >= 0, 10);
+        bool includeDevicePath = args.Contains("--include-device-path", StringComparer.OrdinalIgnoreCase);
         string? path = FindEdge();
         if (path is null)
         {
@@ -118,7 +120,9 @@ internal static class Program
             return 2;
         }
 
-        Console.WriteLine($"path={path}");
+        Console.WriteLine(includeDevicePath
+            ? $"path={path}"
+            : "path=<redacted; use --include-device-path to print locally>");
         Console.WriteLine("utc,event,lx,ly,rx,ry,lt,rt,l2Digital,r2Digital,buttons8,buttons9,extras10,prefix");
         nint handle = Open(path);
         if (handle == InvalidHandle) return 3;

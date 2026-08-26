@@ -1,9 +1,12 @@
 param(
-    [string]$OutputDirectory = "$PSScriptRoot\hub-probes-elevated"
+    [string]$OutputDirectory = "$PSScriptRoot\hub-probes-elevated",
+    [string]$CaptureExe = 'C:\Program Files\USBPcap\USBPcapCMD.exe'
 )
 
 $ErrorActionPreference = 'Continue'
-$captureExe = 'C:\Program Files\USBPcap\USBPcapCMD.exe'
+if (-not (Test-Path -LiteralPath $CaptureExe)) {
+    throw "USBPcapCMD.exe was not found at $CaptureExe"
+}
 New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
 $log = Join-Path $OutputDirectory 'probe.log'
 "Started $(Get-Date -Format o)" | Set-Content -LiteralPath $log
@@ -13,7 +16,7 @@ foreach ($number in 1..12) {
     $stdout = Join-Path $OutputDirectory ("hub{0}.stdout.txt" -f $number)
     $stderr = Join-Path $OutputDirectory ("hub{0}.stderr.txt" -f $number)
     $device = "\\.\USBPcap$number"
-    $process = Start-Process -FilePath $captureExe `
+    $process = Start-Process -FilePath $CaptureExe `
         -ArgumentList @('-d', $device, '-o', $capture, '-A', '--inject-descriptors', '-s', '256') `
         -RedirectStandardOutput $stdout -RedirectStandardError $stderr `
         -WindowStyle Hidden -PassThru

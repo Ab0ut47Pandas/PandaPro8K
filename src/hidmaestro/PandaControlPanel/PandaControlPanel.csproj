@@ -11,7 +11,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Product>Panda Pro 8K</Product>
     <Description>GameSir G7 Pro 8K bridge and input monitor</Description>
-    <Version>0.4.1</Version>
+    <Version>0.4.2</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>

@@ -40,13 +40,16 @@ Secure Boot can remain enabled. The old Xbox Extended Feature Support driver is 
 
 ## Installing a release
 
-1. Install HidHide and restart Windows if its installer asks you to.
-2. In GameSir Connect, select the controller's normal XInput mode and preferred hardware report rate.
-3. Leave L4, R4, M1, and M2 unassigned in the active GameSir profile. The bridge needs their independent report bits.
-4. Download the latest ZIP from [Releases](https://github.com/Ab0ut47Pandas/PandaPro8K/releases).
-5. Extract it, right-click `Install.ps1`, and choose **Run with PowerShell**.
-6. Start the bridge with the **Panda Pro 8K** desktop shortcut.
-7. Approve the UAC prompt and leave the control-panel window open while playing.
+The complete prerequisite, controller-configuration, SmartScreen, first-launch, verification, and everyday-use instructions are in [INSTALL.md](INSTALL.md).
+
+The short version:
+
+1. Install HidHide and the .NET 10 Desktop Runtime, restarting Windows if requested.
+2. In GameSir Connect, select normal XInput mode and the preferred hardware report rate.
+3. Leave L4, R4, M1, and M2 unassigned in the active GameSir profile.
+4. Download and fully extract the latest ZIP from [Releases](https://github.com/Ab0ut47Pandas/PandaPro8K/releases).
+5. Right-click `Install.ps1`, choose **Run with PowerShell**, and use the new **Panda Pro 8K** desktop shortcut.
+6. Allow the launcher to restart Steam, approve UAC, and leave Panda open while playing.
 
 Use the **Output** menu in the app header to change the virtual submission target. A live change affects Panda immediately. Restart through the desktop shortcut before a formal test so Steam is also launched with the corresponding `controller_rate` interval.
 
@@ -111,7 +114,15 @@ The HIDMaestro submodule points to a small project fork. Its added `SubmitRawRep
 - `src/driver` — abandoned custom KMDF prototype retained as research; the current bridge does not install it
 - `PROTOCOL.md`, `TEST_RESULTS.md`, `RESEARCH_LOG.md` — hardware findings and the test chronology
 
-Raw captures and local diagnostic logs are deliberately excluded. They can contain machine-specific USB topology and controller identifiers; the decoded findings needed to reproduce the work are kept in the repository.
+Every maintained diagnostic program is documented in [tools/README.md](tools/README.md). Release pages also provide a prebuilt tools ZIP containing the .NET/native utilities plus the original Python and USBPcap helpers.
+
+Sanitized historical JSON captures are available as a separate release asset and are indexed in [CAPTURES.md](CAPTURES.md). Raw PCAPs and local diagnostic logs are deliberately excluded. They can contain controller serial numbers, unique Windows device paths, foreground-window titles, complete USB topology, and unrelated traffic from other devices on the same hub. The public tools redact identifiers by default, and the decoded findings needed to reproduce the work are kept in the repository.
+
+## Supporting another controller
+
+The input-source menu selects an XInput slot; it does not load another controller protocol. The current backend is specific to GameSir `3537:10C5` and `3537:10C6` plus enhanced report `0x12`.
+
+A different controller needs its own device identity, initialization sequence, report decoder, extra-button mapping, and reconnect tests. Generic XInput alone cannot expose independent paddles or gyro. Use the [controller support request](https://github.com/Ab0ut47Pandas/PandaPro8K/issues/new?template=controller-support.yml) template and attach only reviewed, sanitized diagnostics.
 
 ## Known limitations
 

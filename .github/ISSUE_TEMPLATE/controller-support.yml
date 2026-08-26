@@ -1,0 +1,71 @@
+name: Controller support request
+description: Request investigation of another controller or transport mode
+title: "[Controller support] "
+labels:
+  - controller-support
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Panda Pro 8K currently supports only the GameSir G7 Pro 8K PC/Aimlabs model. Other controllers need their own input backend and hardware captures. Review files before attaching them; do not post controller serial numbers, unique Windows device-instance paths, or unreviewed USBPcap files.
+  - type: input
+    id: model
+    attributes:
+      label: Exact controller model
+      placeholder: Manufacturer and full model name
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+      placeholder: Version shown by the manufacturer's software
+    validations:
+      required: true
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Connection
+      options:
+        - USB cable
+        - 2.4 GHz dongle
+        - Bluetooth
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: mode
+    attributes:
+      label: Controller mode
+      placeholder: XInput, PlayStation, Switch, proprietary HID, etc.
+    validations:
+      required: true
+  - type: input
+    id: identity
+    attributes:
+      label: VID/PID and HID usage
+      description: Do not include the serial number or the unique instance portion of a Windows HID path.
+      placeholder: VID 3537, PID 10C6, usage FFF0:0040
+    validations:
+      required: true
+  - type: textarea
+    id: controls
+    attributes:
+      label: Controls that need independent exposure
+      placeholder: Rear paddles, top buttons, gyro, touchpad, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current behavior
+      description: Explain what Windows, Steam, and the manufacturer's software currently see.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I reviewed attached files and removed serial numbers, unique device paths, private window titles, and unrelated USB traffic.
+          required: true

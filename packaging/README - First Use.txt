@@ -1,6 +1,9 @@
 PANDA PRO 8K BRIDGE
 ===================
 
+Complete guide:
+https://github.com/Ab0ut47Pandas/PandaPro8K/blob/main/INSTALL.md
+
 REQUIREMENTS
 
 - Windows 11 x64
@@ -56,6 +59,8 @@ NOTES
 - "Start with Windows" creates an elevated per-user logon task. Existing SDL
   ignore-list entries are preserved.
 - Logs are written to the logs folder beside the executable.
+- Review logs before posting them publicly. Raw USB captures, device paths,
+  serial numbers, and foreground-window traces may contain private data.
 - The selected output target is stored under the current user's local app data.
 - The application executable is not commercially code-signed, so Windows may
   show a SmartScreen warning for a downloaded release.

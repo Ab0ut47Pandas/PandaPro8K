@@ -50,6 +50,7 @@ Get-ChildItem -LiteralPath $publishDirectory -File -Filter "*.pdb" -ErrorAction 
 Copy-Item -LiteralPath (Join-Path $root "packaging\Start-PandaPro8K.ps1") -Destination $publishDirectory -Force
 Copy-Item -LiteralPath (Join-Path $root "packaging\Install.ps1") -Destination $publishDirectory -Force
 Copy-Item -LiteralPath (Join-Path $root "packaging\README - First Use.txt") -Destination $publishDirectory -Force
+Copy-Item -LiteralPath (Join-Path $root "INSTALL.md") -Destination $publishDirectory -Force
 Copy-Item -LiteralPath (Join-Path $root "LICENSE") -Destination $publishDirectory -Force
 Copy-Item -LiteralPath (Join-Path $root "THIRD_PARTY_NOTICES.md") -Destination $publishDirectory -Force
 

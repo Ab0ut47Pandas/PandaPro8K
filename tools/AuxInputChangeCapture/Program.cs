@@ -17,6 +17,8 @@ internal static class Program
     private static readonly WndProc WindowProcedure = HandleWindowMessage;
     private static DateTime _endUtc;
     private static nint _window;
+    private static bool _includeContext;
+    private static bool _includeDevicePaths;
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     private struct WindowClass
@@ -138,7 +140,10 @@ internal static class Program
     {
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
         Console.SetError(new StreamWriter(Console.OpenStandardError()) { AutoFlush = true });
-        int seconds = args.Length > 0 && int.TryParse(args[0], out int parsed) ? parsed : 900;
+        int seconds = args.Select(value => int.TryParse(value, out int parsed) ? parsed : -1)
+            .FirstOrDefault(value => value >= 0, 900);
+        _includeContext = args.Contains("--include-context", StringComparer.OrdinalIgnoreCase);
+        _includeDevicePaths = args.Contains("--include-device-paths", StringComparer.OrdinalIgnoreCase);
         _endUtc = DateTime.UtcNow.AddSeconds(seconds);
 
         string className = $"PandaAuxInputCapture_{Environment.ProcessId}";
@@ -272,7 +277,8 @@ internal static class Program
             nint device = IntPtr.Size == 8
                 ? (nint)BitConverter.ToInt64(buffer, 8)
                 : (nint)BitConverter.ToInt32(buffer, 8);
-            string deviceName = GetDeviceName(device);
+            string devicePath = GetDeviceName(device);
+            string deviceName = _includeDevicePaths ? devicePath : PublicDeviceName(devicePath);
             (string process, string title) = GetForegroundContext();
             int dataOffset = (int)headerSize;
 
@@ -341,8 +347,24 @@ internal static class Program
         return DeviceNames[device] = copied == uint.MaxValue ? $"handle:{device}" : name.ToString();
     }
 
+    private static string PublicDeviceName(string path)
+    {
+        string[] pieces = path.Split('#');
+        if (pieces.Length > 1 && (pieces[1].Contains("VID_", StringComparison.OrdinalIgnoreCase)
+            || pieces[1].Contains("ROOT", StringComparison.OrdinalIgnoreCase)))
+        {
+            return $"{pieces[0].TrimStart('\\', '?')}#{pieces[1]}";
+        }
+        return "device <instance redacted>";
+    }
+
     private static (string Process, string Title) GetForegroundContext()
     {
+        if (!_includeContext)
+        {
+            return ("<redacted>", "<redacted>");
+        }
+
         nint foreground = GetForegroundWindow();
         StringBuilder title = new(512);
         GetWindowText(foreground, title, title.Capacity);

@@ -25,6 +25,29 @@ def path_text(value):
     return value.decode(errors="replace") if isinstance(value, bytes) else value
 
 
+def public_device_metadata(item, include_identifiers=False):
+    """Return capture metadata without per-device identifiers by default."""
+    safe_keys = (
+        "vendor_id",
+        "product_id",
+        "release_number",
+        "manufacturer_string",
+        "product_string",
+        "usage_page",
+        "usage",
+        "interface_number",
+        "bus_type",
+    )
+    metadata = {key: item.get(key) for key in safe_keys if key in item}
+    if include_identifiers:
+        metadata["serial_number"] = item.get("serial_number")
+        metadata["path"] = path_text(item.get("path"))
+    else:
+        metadata["serial_number"] = "<redacted>"
+        metadata["path"] = "<redacted>"
+    return metadata
+
+
 def list_devices(args):
     found = devices(args.pid)
     if not found:
@@ -35,7 +58,11 @@ def list_devices(args):
         print(f"  VID:PID       {item['vendor_id']:04X}:{item['product_id']:04X}")
         print(f"  interface     {item.get('interface_number')}")
         print(f"  usage         {item.get('usage_page', 0):04X}:{item.get('usage', 0):04X}")
-        print(f"  path          {path_text(item['path'])}")
+        if args.include_identifiers:
+            print(f"  serial        {item.get('serial_number') or '(none)'}")
+            print(f"  path          {path_text(item['path'])}")
+        else:
+            print("  identifiers   redacted (use --include-identifiers to display locally)")
     return 0
 
 
@@ -110,8 +137,9 @@ def capture(args):
     document = {
         "clock": "time.perf_counter_ns (Windows QueryPerformanceCounter-backed)",
         "duration_requested_s": args.seconds,
-        "devices": [{**{k: v for k, v in item.items() if k != "path"},
-                     "path": path_text(item["path"])} for item, _ in opened],
+        "privacy": "serial numbers and Windows HID instance paths are redacted by default",
+        "devices": [public_device_metadata(item, args.include_identifiers)
+                    for item, _ in opened],
         "frames": frames,
     }
     output.write_text(json.dumps(document, indent=2), encoding="utf-8")
@@ -146,6 +174,22 @@ def summarize(args):
     return 0
 
 
+def sanitize(args):
+    source = Path(args.input)
+    destination = Path(args.output)
+    document = json.loads(source.read_text(encoding="utf-8"))
+    for item in document.get("devices", []):
+        if "serial_number" in item:
+            item["serial_number"] = "<redacted>"
+        if "path" in item:
+            item["path"] = "<redacted>"
+    document["privacy"] = "serial numbers and Windows HID instance paths were redacted"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(document, indent=2), encoding="utf-8")
+    print(f"Wrote sanitized capture to {destination}")
+    return 0
+
+
 def number(value):
     return int(value, 0)
 
@@ -155,6 +199,8 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     lp = sub.add_parser("list")
     lp.add_argument("--pid", type=number)
+    lp.add_argument("--include-identifiers", action="store_true",
+                    help="show serial numbers and Windows HID instance paths")
     lp.set_defaults(func=list_devices)
     cp = sub.add_parser("capture")
     cp.add_argument("--seconds", type=float, default=10)
@@ -164,10 +210,16 @@ def main():
     cp.add_argument("--usage-page", type=number)
     cp.add_argument("--usage", type=number)
     cp.add_argument("--max-length", type=int, default=256)
+    cp.add_argument("--include-identifiers", action="store_true",
+                    help="store serial numbers and Windows HID instance paths")
     cp.set_defaults(func=capture)
     sp = sub.add_parser("summarize")
     sp.add_argument("input")
     sp.set_defaults(func=summarize)
+    zp = sub.add_parser("sanitize")
+    zp.add_argument("input")
+    zp.add_argument("output")
+    zp.set_defaults(func=sanitize)
     args = parser.parse_args()
     return args.func(args)
 
