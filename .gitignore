@@ -1,0 +1,40 @@
+# Build output
+artifacts/
+build/
+logs/
+**/bin/
+**/obj/
+**/x64/
+*.obj
+*.pdb
+*.sys
+*.cat
+*.cer
+*.recipe
+*.tlog
+
+# Local captures and machine-specific test data
+capture-*.json
+*.pcap
+hub-probes/
+hub-probes-elevated/
+
+# Reference checkouts used during the original investigation
+reference-HIDMaestro/
+reference-gamesir-linux-tools/
+microsoft-driver-samples/
+
+# Local deployment helpers
+tools/deploy-panda-v*.ps1
+
+# Visual Studio and Windows
+.vs/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+
+# Signing material
+*.pfx
+*.pvk
+*.snk

@@ -1,0 +1,90 @@
+;/*++
+;
+;Copyright (c) Microsoft Corporation All rights Reserved
+;
+;Module Name:
+;
+;    vihidmini.inf
+;
+;Abstract:
+;    INF file for installing HID minidriver (KMDF version)
+;
+;Installation Notes:
+;    Using Devcon: Type "devcon install vhidmini.inf root\vhidmini" to install
+;
+;Important:
+;    This INF depends on MsHidKmdf.inf, which was introduced in build 22000
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=HIDClass
+ClassGuid={745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+Provider=%ProviderString%
+DriverVer=10/01/2002,6.0.5058.0
+CatalogFile=wudf.cat
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir=13
+
+[SourceDisksNames]
+1=%DiskDesc%,,,
+
+[SourceDisksFiles]
+panda_vhid.sys=1
+
+; ================= Device section =====================
+
+[Manufacturer]
+%ManufacturerString%=Microsoft,NT$ARCH$.10.0...22000
+
+[Microsoft.NT$ARCH$.10.0...22000]
+%DeviceDesc%=panda_vhid, root\pandapro8k
+
+[panda_vhid.NT]
+CopyFiles=KMDriverCopy
+Include=MsHidKmdf.inf
+Needs=MsHidKmdf.NT
+
+[panda_vhid.NT.HW]
+Include=MsHidKmdf.inf
+Needs=MsHidKmdf.NT.HW
+
+[panda_vhid.NT.Services]
+Include=MsHidKmdf.inf
+Needs=MsHidKmdf.NT.Services
+AddService=panda_vhid,0,panda_vhid_Service_Inst
+
+[panda_vhid.NT.Filters]
+AddFilter=panda_vhid,,panda_vhid_Filter_Install
+
+[panda_vhid_Filter_Install]
+FilterPosition=Lower
+
+[panda_vhid_Service_Inst]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %13%\panda_vhid.sys
+
+[panda_vhid.NT.Wdf]
+KmdfService=panda_vhid, panda_vhid_wdfsect
+
+[panda_vhid_wdfsect]
+KmdfLibraryVersion=$KMDFVERSION$
+
+; ================= copy files =====================
+
+[KMDriverCopy]
+panda_vhid.sys
+
+;---------------------------------------------------------------;
+
+[Strings]
+ProviderString     = "Panda Controller Project"
+ManufacturerString = "Panda Controller Project"
+DeviceDesc         = "Panda Pro 8K Virtual Controller"
+ServiceDesc        = "Panda Pro 8K Virtual HID Service"
+DiskDesc           = "Panda Pro 8K Driver Package"

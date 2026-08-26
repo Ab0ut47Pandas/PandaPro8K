@@ -1,0 +1,4 @@
+[submodule "vendor/HIDMaestro"]
+	path = vendor/HIDMaestro
+	url = https://github.com/Ab0ut47Pandas/HIDMaestro.git
+	branch = panda-pro-8k

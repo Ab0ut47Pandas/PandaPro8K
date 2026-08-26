@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>PandaPro8K</AssemblyName>
+    <RootNamespace>PandaPro8K</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Product>Panda Pro 8K</Product>
+    <Description>GameSir G7 Pro 8K bridge and input monitor</Description>
+    <Version>0.4.0</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../vendor/HIDMaestro/sdk/HIDMaestro.Core/HIDMaestro.Core.csproj" />
+  </ItemGroup>
+</Project>
