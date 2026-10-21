@@ -1,0 +1,418 @@
+{
+  "created_utc": "2026-10-21T22:53:34.297086+00:00",
+  "checks": {
+    "initial_native_checks": true,
+    "reconnected_native_high_speed": true,
+    "reconnected_native_near_4khz": true,
+    "reconnected_independent_extras": true,
+    "wireless_xinput": true,
+    "original_packages_and_restore_files_unchanged": true
+  },
+  "all_checks_pass": true,
+  "reconnection_native": {
+    "capture": "work\\gamesir_firmware_inspection\\preflight\\gate-2-receiver-native-motion-wireless4k-reconnect.json",
+    "report_arrivals": {
+      "samples": 95858,
+      "rate_over_span_hz": 3824.711611868663,
+      "median_interval_ms": 0.2498,
+      "p95_interval_ms": 0.3292
+    },
+    "fresh_stick_changes": {
+      "samples": 49378,
+      "rate_over_span_hz": 3978.5426046582234,
+      "median_interval_ms": 0.2498,
+      "p95_interval_ms": 0.2961
+    },
+    "changed_states_per_1s_bin": {
+      "0": 3820,
+      "1": 3986,
+      "2": 3981,
+      "3": 3982,
+      "4": 3979,
+      "5": 3991,
+      "6": 3980,
+      "7": 3968,
+      "8": 3982,
+      "9": 4000,
+      "10": 3984,
+      "11": 3947,
+      "12": 1778
+    },
+    "active_1s_bins": {
+      "threshold_hz": 3500.0,
+      "count": 12,
+      "min": 3820,
+      "max": 4000,
+      "mean": 3966.6666666666665
+    },
+    "axes": {
+      "lx": {
+        "min": -32768,
+        "max": 32767,
+        "distinct_codes": 30444
+      },
+      "ly": {
+        "min": -32768,
+        "max": 32767,
+        "distinct_codes": 32060
+      },
+      "rx": {
+        "min": -32768,
+        "max": 32767,
+        "distinct_codes": 32240
+      },
+      "ry": {
+        "min": -32768,
+        "max": 32767,
+        "distinct_codes": 31056
+      }
+    },
+    "triggers": {
+      "left": {
+        "min": 0,
+        "max": 0,
+        "distinct_codes": 1
+      },
+      "right": {
+        "min": 0,
+        "max": 0,
+        "distinct_codes": 1
+      }
+    },
+    "button_press_counts": {
+      "A": 1,
+      "B": 0,
+      "L4": 1,
+      "R4": 1,
+      "L5": 1,
+      "R5": 1
+    },
+    "all_four_extras_observed": true
+  },
+  "reconnection_usb": {
+    "usb_speed_code": 2,
+    "usb_speed": "high",
+    "device_descriptor": "12011101000000403735b810350100020301",
+    "bcd_usb": "0x111",
+    "open_pipes": [
+      {
+        "address": "0x82",
+        "type": 3,
+        "max_packet": 64,
+        "bInterval": 1,
+        "raw": "07058203400001"
+      },
+      {
+        "address": "0x2",
+        "type": 3,
+        "max_packet": 64,
+        "bInterval": 10,
+        "raw": "0705020340000a"
+      },
+      {
+        "address": "0x84",
+        "type": 3,
+        "max_packet": 64,
+        "bInterval": 4,
+        "raw": "07058403400004"
+      },
+      {
+        "address": "0x4",
+        "type": 3,
+        "max_packet": 64,
+        "bInterval": 4,
+        "raw": "07050403400004"
+      }
+    ],
+    "configuration_bytes": 73,
+    "configuration": [
+      {
+        "offset": 0,
+        "type": 2,
+        "raw": "0902490002010080fa"
+      },
+      {
+        "offset": 9,
+        "type": 4,
+        "raw": "090400000203000000",
+        "interface": 0,
+        "alternate": 0,
+        "class_code": 3,
+        "subclass": 0,
+        "protocol": 0
+      },
+      {
+        "offset": 18,
+        "type": 33,
+        "raw": "09211001000122a600"
+      },
+      {
+        "offset": 27,
+        "type": 5,
+        "raw": "07058203400001",
+        "interface": 0,
+        "address": "0x82",
+        "transfer_type": 3,
+        "max_packet": 64,
+        "bInterval": 1,
+        "interval_ms": 0.125
+      },
+      {
+        "offset": 34,
+        "type": 5,
+        "raw": "0705020340000a",
+        "interface": 0,
+        "address": "0x2",
+        "transfer_type": 3,
+        "max_packet": 64,
+        "bInterval": 10,
+        "interval_ms": 64.0
+      },
+      {
+        "offset": 41,
+        "type": 4,
+        "raw": "090401000203000000",
+        "interface": 1,
+        "alternate": 0,
+        "class_code": 3,
+        "subclass": 0,
+        "protocol": 0
+      },
+      {
+        "offset": 50,
+        "type": 33,
+        "raw": "09211001000122e900"
+      },
+      {
+        "offset": 59,
+        "type": 5,
+        "raw": "07058403400004",
+        "interface": 1,
+        "address": "0x84",
+        "transfer_type": 3,
+        "max_packet": 64,
+        "bInterval": 4,
+        "interval_ms": 1.0
+      },
+      {
+        "offset": 66,
+        "type": 5,
+        "raw": "07050403400004",
+        "interface": 1,
+        "address": "0x4",
+        "transfer_type": 3,
+        "max_packet": 64,
+        "bInterval": 4,
+        "interval_ms": 1.0
+      }
+    ],
+    "read_only": true
+  },
+  "wireless_xinput": {
+    "summary": {
+      "elapsed_seconds": 30.000002,
+      "host_queries": 13824458,
+      "state_rows": 83839,
+      "ranges": {
+        "samples": 83839,
+        "lt": {
+          "minimum": 0,
+          "maximum": 255,
+          "unique_values": 133,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        },
+        "rt": {
+          "minimum": 0,
+          "maximum": 255,
+          "unique_values": 141,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        },
+        "lx": {
+          "minimum": -32768,
+          "maximum": 32767,
+          "unique_values": 40438,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        },
+        "ly": {
+          "minimum": -32768,
+          "maximum": 32767,
+          "unique_values": 43121,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        },
+        "rx": {
+          "minimum": -32768,
+          "maximum": 32767,
+          "unique_values": 42755,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        },
+        "ry": {
+          "minimum": -32768,
+          "maximum": 32767,
+          "unique_values": 41731,
+          "minimum_observed_step": 1,
+          "gcd_observed_steps": 1
+        }
+      },
+      "packet_counter_changes": {
+        "samples": 83797,
+        "rate_over_span_hz": 3186.6458592336726,
+        "median_interval_ms": 0.2499,
+        "p95_interval_ms": 0.3633
+      },
+      "stick_state_changes": {
+        "samples": 83484,
+        "rate_over_span_hz": 3722.233533626561,
+        "median_interval_ms": 0.2499,
+        "p95_interval_ms": 0.3434
+      },
+      "buttons_observed_hex": [
+        "0000",
+        "1000",
+        "2000"
+      ],
+      "a_observed": true,
+      "b_observed": true,
+      "limits": [
+        "XInput API observations are not a direct USB analyzer, sensor sampling, or physical latency measurement.",
+        "No fresh stock XInput capture was made in this session, so this is a post-flash sanity check, not an A/B comparison.",
+        "Host scheduling, manual motion, filtering and quantization affect observed changes."
+      ]
+    },
+    "changed_states_per_1s_bin": {
+      "0": 3977,
+      "1": 3592,
+      "2": 1360,
+      "3": 1202,
+      "4": 3965,
+      "5": 3946,
+      "6": 3976,
+      "7": 3977,
+      "8": 3975,
+      "9": 4005,
+      "10": 3979,
+      "11": 3983,
+      "12": 3988,
+      "13": 3992,
+      "14": 3982,
+      "15": 4000,
+      "16": 3988,
+      "17": 3975,
+      "18": 3976,
+      "19": 3984,
+      "20": 3997,
+      "21": 3990,
+      "22": 1675
+    },
+    "active_1s_bins": {
+      "threshold_hz": 3500,
+      "count": 20,
+      "min": 3592,
+      "max": 4005,
+      "mean": 3962.35
+    },
+    "checks": {
+      "exact_receiver_identity": true,
+      "near_4khz_motion_observed": true,
+      "full_stick_range": true,
+      "full_trigger_range": true,
+      "a_and_b": true,
+      "configuration_read_at_4khz": true
+    }
+  },
+  "configuration": {
+    "vid_pid": "3537:10c6",
+    "connection": "receiver",
+    "controller_firmware": "2.2.9",
+    "receiver_firmware_in_current_response": "1.3.5",
+    "active_profile_raw": 1,
+    "active_profile_settings": {
+      "report_rate_code": 4,
+      "configured_rate_hz": 4000,
+      "gyro_speed_code": 0,
+      "stick_resolution_raw": 0,
+      "stick_resolution_ui_value": 4,
+      "left_anti_jitter_raw": 11
+    },
+    "queries": [
+      {
+        "query_hex": "0f09",
+        "response_hex": "100a3000320032003900300031003300350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "query_hex": "0f0b",
+        "response_hex": "100c0100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "query_hex": "0f0401002e04",
+        "response_hex": "100501002e040400000b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "limits": [
+      "Configured report rate is not measured throughput or fresh-stick cadence.",
+      "Stick-resolution setting is not measured effective resolution.",
+      "Receiver version may be absent over a wired connection.",
+      "No configuration write, heartbeat, calibration, mode change, or firmware update was performed."
+    ]
+  },
+  "preserved_file_hashes": {
+    "outputs/gamesir-wireless-4k-investigation/GS_G7_Pro_CE_DG_V135_Key-STOCK-RESTORE.ufw": {
+      "expected_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+      "actual_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+      "match": true
+    },
+    "outputs/gamesir-wireless-4k-investigation/candidate-receiver-fast-native/GS_G7_Pro_CE_DG_V135_Key-fast-native-UNTESTED.ufw.research": {
+      "expected_sha256": "26e7e593fcfabc3c86f98e5888c61a3e6cac38e6d477c5b70b9abb9b61e55767",
+      "actual_sha256": "26e7e593fcfabc3c86f98e5888c61a3e6cac38e6d477c5b70b9abb9b61e55767",
+      "match": true
+    },
+    "outputs/gamesir-firmware-test/GS_G7_Pro_CE_DV_V229_Key-STOCK-RESTORE.ufw": {
+      "expected_sha256": "4d2982df76d92f0ef7564a98005c8b01c25e0c9d1f995becbe1afe72e55882c4",
+      "actual_sha256": "4d2982df76d92f0ef7564a98005c8b01c25e0c9d1f995becbe1afe72e55882c4",
+      "match": true
+    },
+    "outputs/gamesir-4k-investigation/GS_G7_Pro_CE_DV_V229_Key-GATE2-ROLLBACK.ufw": {
+      "expected_sha256": "faee94bd17317f9b26afb1d0d33c8bc2f7980ab50e9a23184bd4c124678f2cd8",
+      "actual_sha256": "faee94bd17317f9b26afb1d0d33c8bc2f7980ab50e9a23184bd4c124678f2cd8",
+      "match": true
+    },
+    "outputs/gamesir-4k-investigation/candidate-gate2-native-rate/GS_G7_Pro_CE_DV_V229_Key-gate2-native-rate-UNTESTED.ufw.research": {
+      "expected_sha256": "201e5418b434a8eb21b5b8802c757ee26a6c66c912e03f864f42471cdc0550f7",
+      "actual_sha256": "201e5418b434a8eb21b5b8802c757ee26a6c66c912e03f864f42471cdc0550f7",
+      "match": true
+    },
+    "GS_G7_Pro_CE_DG_V135_Key.ufw": {
+      "expected_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+      "actual_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+      "match": true
+    },
+    "GS_G7_Pro_CE_DG_V135_No_Key.ufw": {
+      "expected_sha256": "08fa3c210daae0d3fdd3b828e0f39818678b93f441b115f31a3fa5659c952a24",
+      "actual_sha256": "08fa3c210daae0d3fdd3b828e0f39818678b93f441b115f31a3fa5659c952a24",
+      "match": true
+    },
+    "GS_G7_Pro_CE_DV_V229_Key.ufw": {
+      "expected_sha256": "4d2982df76d92f0ef7564a98005c8b01c25e0c9d1f995becbe1afe72e55882c4",
+      "actual_sha256": "4d2982df76d92f0ef7564a98005c8b01c25e0c9d1f995becbe1afe72e55882c4",
+      "match": true
+    },
+    "GS_G7_Pro_CE_DV_V229_No_Key.ufw": {
+      "expected_sha256": "5ba543ae064b1fb4ff9d37d5da75168f36fd165f57fa7ce44844277cdd25a2a7",
+      "actual_sha256": "5ba543ae064b1fb4ff9d37d5da75168f36fd165f57fa7ce44844277cdd25a2a7",
+      "match": true
+    }
+  },
+  "axis_direction": "User reports correct in-game behavior; live tester raw-Y display sign corrected without changing firmware or captured bytes.",
+  "limits": [
+    "Host-observed fresh axis states are not sensor sampling, effective physical bit depth, or end-to-end latency.",
+    "Independent extra buttons and triggers retain their existing slower radio state path.",
+    "Short functional testing only; battery life and extended reliability are unmeasured.",
+    "Configuration protocol reads passed; full Connect GUI editing, calibration, and update behavior were not exercised.",
+    "No full firmware readback or pairing/NVM dump; preserved package hashes are not a running-flash readback.",
+    "Native extended report performance does not establish Steam output rate or standard browser Gamepad API behavior."
+  ]
+}

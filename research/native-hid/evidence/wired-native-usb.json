@@ -1,0 +1,119 @@
+{
+  "usb_speed_code": 2,
+  "usb_speed": "high",
+  "device_descriptor": "12011101000000403735b810290200020301",
+  "bcd_usb": "0x111",
+  "open_pipes": [
+    {
+      "address": "0x82",
+      "type": 3,
+      "max_packet": 64,
+      "bInterval": 1,
+      "raw": "07058203400001"
+    },
+    {
+      "address": "0x2",
+      "type": 3,
+      "max_packet": 64,
+      "bInterval": 10,
+      "raw": "0705020340000a"
+    },
+    {
+      "address": "0x84",
+      "type": 3,
+      "max_packet": 64,
+      "bInterval": 4,
+      "raw": "07058403400004"
+    },
+    {
+      "address": "0x4",
+      "type": 3,
+      "max_packet": 64,
+      "bInterval": 4,
+      "raw": "07050403400004"
+    }
+  ],
+  "configuration_bytes": 73,
+  "configuration": [
+    {
+      "offset": 0,
+      "type": 2,
+      "raw": "0902490002010080fa"
+    },
+    {
+      "offset": 9,
+      "type": 4,
+      "raw": "090400000203000000",
+      "interface": 0,
+      "alternate": 0,
+      "class_code": 3,
+      "subclass": 0,
+      "protocol": 0
+    },
+    {
+      "offset": 18,
+      "type": 33,
+      "raw": "09211001000122a600"
+    },
+    {
+      "offset": 27,
+      "type": 5,
+      "raw": "07058203400001",
+      "interface": 0,
+      "address": "0x82",
+      "transfer_type": 3,
+      "max_packet": 64,
+      "bInterval": 1,
+      "interval_ms": 0.125
+    },
+    {
+      "offset": 34,
+      "type": 5,
+      "raw": "0705020340000a",
+      "interface": 0,
+      "address": "0x2",
+      "transfer_type": 3,
+      "max_packet": 64,
+      "bInterval": 10,
+      "interval_ms": 64.0
+    },
+    {
+      "offset": 41,
+      "type": 4,
+      "raw": "090401000203000000",
+      "interface": 1,
+      "alternate": 0,
+      "class_code": 3,
+      "subclass": 0,
+      "protocol": 0
+    },
+    {
+      "offset": 50,
+      "type": 33,
+      "raw": "09211001000122e900"
+    },
+    {
+      "offset": 59,
+      "type": 5,
+      "raw": "07058403400004",
+      "interface": 1,
+      "address": "0x84",
+      "transfer_type": 3,
+      "max_packet": 64,
+      "bInterval": 4,
+      "interval_ms": 1.0
+    },
+    {
+      "offset": 66,
+      "type": 5,
+      "raw": "07050403400004",
+      "interface": 1,
+      "address": "0x4",
+      "transfer_type": 3,
+      "max_packet": 64,
+      "bInterval": 4,
+      "interval_ms": 1.0
+    }
+  ],
+  "read_only": true
+}

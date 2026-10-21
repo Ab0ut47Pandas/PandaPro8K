@@ -1,0 +1,79 @@
+{
+  "kind": "XInput API observations",
+  "fresh_stick_changes": {
+    "samples": 83484,
+    "rate_over_span_hz": 3722.233533626561,
+    "median_interval_ms": 0.2499,
+    "p95_interval_ms": 0.3434
+  },
+  "changed_states_per_1s_bin": {
+    "0": 3977,
+    "1": 3592,
+    "2": 1360,
+    "3": 1202,
+    "4": 3965,
+    "5": 3946,
+    "6": 3976,
+    "7": 3977,
+    "8": 3975,
+    "9": 4005,
+    "10": 3979,
+    "11": 3983,
+    "12": 3988,
+    "13": 3992,
+    "14": 3982,
+    "15": 4000,
+    "16": 3988,
+    "17": 3975,
+    "18": 3976,
+    "19": 3984,
+    "20": 3997,
+    "21": 3990,
+    "22": 1675
+  },
+  "active_1s_bins": {
+    "threshold_hz": 3500.0,
+    "count": 20,
+    "min": 3592,
+    "max": 4005,
+    "mean": 3962.35
+  },
+  "axes": {
+    "lx": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 40438
+    },
+    "ly": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 43121
+    },
+    "rx": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 42755
+    },
+    "ry": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 41731
+    }
+  },
+  "limits": [
+    "Changed output codes do not establish effective sensor bits or physical latency.",
+    "Active bins use an explicit threshold; all observed bins are included for review."
+  ],
+  "a_observed": true,
+  "b_observed": true,
+  "triggers": {
+    "left": {
+      "min": 0,
+      "max": 255
+    },
+    "right": {
+      "min": 0,
+      "max": 255
+    }
+  }
+}

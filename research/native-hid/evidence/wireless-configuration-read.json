@@ -1,0 +1,35 @@
+{
+  "vid_pid": "3537:10c6",
+  "connection": "receiver",
+  "controller_firmware": "2.2.9",
+  "receiver_firmware_in_current_response": "1.3.5",
+  "active_profile_raw": 1,
+  "active_profile_settings": {
+    "report_rate_code": 4,
+    "configured_rate_hz": 4000,
+    "gyro_speed_code": 0,
+    "stick_resolution_raw": 0,
+    "stick_resolution_ui_value": 4,
+    "left_anti_jitter_raw": 11
+  },
+  "queries": [
+    {
+      "query_hex": "0f09",
+      "response_hex": "100a3000320032003900300031003300350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "query_hex": "0f0b",
+      "response_hex": "100c0100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "query_hex": "0f0401002e04",
+      "response_hex": "100501002e040400000b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "limits": [
+    "Configured report rate is not measured throughput or fresh-stick cadence.",
+    "Stick-resolution setting is not measured effective resolution.",
+    "Receiver version may be absent over a wired connection.",
+    "No configuration write, heartbeat, calibration, mode change, or firmware update was performed."
+  ]
+}

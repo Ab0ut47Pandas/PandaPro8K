@@ -6,6 +6,12 @@ The immediate goal is simple: retain the controller's fast standard-control path
 
 This is an independent community project. It is not affiliated with or supported by GameSir, Valve, Sony, Nefarius, or the HIDMaestro project.
 
+## Native HID firmware research
+
+I also traced the G7 Pro 8K's slower native HID stick path and tested firmware patches for it. On my PC/Aimlabs unit, wired and wireless native HID now deliver about 4,000 fresh stick updates/sec while keeping all four extra buttons independent. The wireless result survived unplugging and reconnecting the receiver. Normal XInput checks passed too.
+
+The [firmware research](research/native-hid/README.md) includes exact reversible file patches, tools, results, hashes and recovery limits. It is a separate experiment from the virtual-controller bridge below. Only one controller/receiver pair has been tested; battery life, long-term reliability and flashing stock back remain untested. Full vendor firmware and an unattended hardware flasher aren't included.
+
 ## Current status
 
 The bridge is usable on the development controller, but it should still be treated as an early test release.

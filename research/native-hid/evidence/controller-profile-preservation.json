@@ -1,0 +1,43 @@
+{
+  "active_profile_before": 1,
+  "active_profile_after": 1,
+  "profiles": [
+    {
+      "profile": 1,
+      "bytes": 1070,
+      "identical": true,
+      "sha256_after": "552c35afa3154ac60f94372c0a02b352f30befca7728d7e7a84df4a40b872ee9"
+    },
+    {
+      "profile": 2,
+      "bytes": 1070,
+      "identical": true,
+      "sha256_after": "ee61833610d04a6af55246d7a5cd7c035c789ed6f01b8d0fe85c587ca3fee18b"
+    },
+    {
+      "profile": 3,
+      "bytes": 1070,
+      "identical": true,
+      "sha256_after": "c7e3968f05ec1351e9665c8457b2c3e632bee4126d8ed57e3a256059ccb12c22"
+    },
+    {
+      "profile": 4,
+      "bytes": 1070,
+      "identical": true,
+      "sha256_after": "caef3abd1a58ab2b0e7a1a1a6b1d5d2b53c4df2e018a82de2fa8fcafa54c3826"
+    },
+    {
+      "profile": 5,
+      "bytes": 1070,
+      "identical": true,
+      "sha256_after": "d2fa5f4ab940ddc197123c9e1468e0e8f17315d1c6517774c742c2218bbd94f4"
+    },
+    {
+      "profile": 32,
+      "bytes": 169,
+      "identical": true,
+      "sha256_after": "973ff6b99c0df7b60e2320c8b1fea3e2478a8c960e999b880660d759e9189e1e"
+    }
+  ],
+  "all_identical": true
+}

@@ -1,0 +1,38 @@
+{
+  "status": "offline validated candidate; not flashed or hardware tested",
+  "package_file": "<research-workspace>\\outputs\\gamesir-4k-investigation\\candidate-gate2-native-rate\\GS_G7_Pro_CE_DV_V229_Key-gate2-native-rate-UNTESTED.ufw.research",
+  "package_sha256": "201e5418b434a8eb21b5b8802c757ee26a6c66c912e03f864f42471cdc0550f7",
+  "package_bytes": 2178368,
+  "application_sha256": "5ca952c664a069b4226fe4b5ad02d2d53990f418c039f75b2541c6dcd9f13ea0",
+  "application_bytes": 969512,
+  "runtime_patch_address": "0x60266ae",
+  "application_patch_offset": "0x265ae",
+  "before_hex": "01f8f100",
+  "after_hex": "00000000",
+  "changed_app_bytes_vs_gate2": [
+    "0x265ae",
+    "0x265af",
+    "0x265b0"
+  ],
+  "preserves_tested_gate2_change": true,
+  "independent_assembler_encoding_check": true,
+  "interior_direct_branch_targets": [],
+  "package_roundtrip_identical": true,
+  "known_nested_crcs_valid": true,
+  "redecoded_app_matches": true,
+  "non_flash_payloads_unchanged": true,
+  "installed_package_unchanged": true,
+  "intended_behavior": "Native extended report producer follows the existing configured USB rate instead of waiting for the 1-ms context+0x210C counter.",
+  "evidence": [
+    "Mode-11 extended-only branch 0x0602669A-0x060266C6 gates on context+0x210C.",
+    "The counter increment helper 0x0602DE76 has one direct caller at 0x00120502.",
+    "Timer ISR calls it after four 250-us ticks or eight 125-us ticks.",
+    "Physical moving native HID measured 1000 fresh changes/sec; same wired XInput profile measured about 4000/sec."
+  ],
+  "remaining": [
+    "Fresh profile backup and recovery identity verification",
+    "Vendor updater target and integrity checks",
+    "Post-flash wired native movement/button/rate capture",
+    "Profile equality and normal XInput regression check"
+  ]
+}

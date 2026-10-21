@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "controller",
+  "component": "controller",
+  "base_version": "2.2.9",
+  "source_name": "GS_G7_Pro_CE_DV_V229_Key.ufw",
+  "size": 2178368,
+  "source_sha256": "4d2982df76d92f0ef7564a98005c8b01c25e0c9d1f995becbe1afe72e55882c4",
+  "result_sha256": "201e5418b434a8eb21b5b8802c757ee26a6c66c912e03f864f42471cdc0550f7",
+  "changed_package_bytes": 32,
+  "changes": [
+    {
+      "offset": 0,
+      "xor": "01c2b3bf"
+    },
+    {
+      "offset": 68,
+      "xor": "6afa"
+    },
+    {
+      "offset": 548,
+      "xor": "85f1"
+    },
+    {
+      "offset": 5152,
+      "xor": "c44f5e5b"
+    },
+    {
+      "offset": 5184,
+      "xor": "a4a7e15c"
+    },
+    {
+      "offset": 162510,
+      "xor": "01f8f1"
+    },
+    {
+      "offset": 943009,
+      "xor": "10"
+    },
+    {
+      "offset": 1192032,
+      "xor": "c44f5e5b"
+    },
+    {
+      "offset": 1192064,
+      "xor": "a4a7e15c"
+    },
+    {
+      "offset": 1349390,
+      "xor": "01f8f1"
+    },
+    {
+      "offset": 2129889,
+      "xor": "10"
+    }
+  ]
+}

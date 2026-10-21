@@ -1,0 +1,79 @@
+{
+  "status": "offline validated receiver candidate; not flashed",
+  "receiver_version": "1.3.5",
+  "package": "<research-workspace>\\outputs\\gamesir-wireless-4k-investigation\\candidate-receiver-fast-native\\GS_G7_Pro_CE_DG_V135_Key-fast-native-UNTESTED.ufw.research",
+  "package_sha256": "26e7e593fcfabc3c86f98e5888c61a3e6cac38e6d477c5b70b9abb9b61e55767",
+  "application_sha256": "8242f0737f45c50755f243d62eff008311ece6a9be0b863aab63d2cea60a9449",
+  "package_bytes": 1851328,
+  "application_bytes": 806872,
+  "changed_app_bytes": [
+    "0x408d",
+    "0x4cde",
+    "0x4cdf",
+    "0x4ce0",
+    "0x4ce1",
+    "0x4ce2",
+    "0x4ce3",
+    "0x4ce6",
+    "0x4ce7",
+    "0x4cea",
+    "0x4ceb",
+    "0x4cee",
+    "0x4cef",
+    "0x4cf2",
+    "0x4cf3",
+    "0x4cf6",
+    "0x4cf7",
+    "0x4cfa",
+    "0x4cfb",
+    "0x4cfe",
+    "0x4cff"
+  ],
+  "patches": [
+    {
+      "address": "0x0600418c",
+      "purpose": "Disable the extended-native forced minimum divisor 8; retain configured rate and existing mode-C/global clamps."
+    },
+    {
+      "address": "0x06004dda",
+      "length": 40,
+      "purpose": "Use the existing fast XInput signed-16-bit axis buffer at context+0x50; retain native big-endian report encoding and legacy trigger pointer."
+    }
+  ],
+  "native_mode_table_case": 11,
+  "native_hat_table_targets": [
+    "0x6004d6e",
+    "0x6004d64",
+    "0x6004d6e",
+    "0x6004d60",
+    "0x6004be6",
+    "0x6004d58",
+    "0x6004be6",
+    "0x6004d68",
+    "0x6004d5c",
+    "0x6004d6c",
+    "0x6004d5c",
+    "0x6004d60",
+    "0x6004d78",
+    "0x6004d58",
+    "0x6004be6"
+  ],
+  "native_reachable_instruction_count_before_axes": 85,
+  "r5_invariant_write": "0x06004b42",
+  "ps4_r5_clobber_not_reachable": true,
+  "axis_vector_checks_passed": 1625,
+  "axis_block_size_preserved": true,
+  "all_non_axis_report_bytes_preserved_in_vector_checks": true,
+  "existing_high_speed_mode_whitelist_unchanged": true,
+  "stock_roundtrip_identical": true,
+  "known_nested_crcs_valid": true,
+  "non_flash_payloads_unchanged": true,
+  "installed_package_unchanged": true,
+  "controller_firmware_untouched": true,
+  "restore_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+  "limits": [
+    "Receiver recovery identity and vendor file acceptance still require verification.",
+    "Fast radio data availability and high-speed native operation must be physically tested.",
+    "No pairing/NVM dump or firmware readback has been made."
+  ]
+}

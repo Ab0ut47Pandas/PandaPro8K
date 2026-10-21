@@ -43,3 +43,13 @@ Desktop.ini
 *.pfx
 *.pvk
 *.snk
+
+# Local native-HID research output; reviewed deltas/evidence stay tracked
+research/native-hid/**/*.ufw
+research/native-hid/**/*.bin
+research/native-hid/**/live-status.json
+research/native-hid/**/live-status.tmp
+research/native-hid/**/*.log
+research/native-hid/firmware-analysis/
+research/native-hid/local/
+!research/native-hid/evidence/capture-index.json

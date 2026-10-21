@@ -1,0 +1,186 @@
+{
+  "kind": "native HID",
+  "fresh_stick_changes": {
+    "samples": 49378,
+    "rate_over_span_hz": 3978.5426046582234,
+    "median_interval_ms": 0.2498,
+    "p95_interval_ms": 0.2961
+  },
+  "changed_states_per_1s_bin": {
+    "0": 3820,
+    "1": 3986,
+    "2": 3981,
+    "3": 3982,
+    "4": 3979,
+    "5": 3991,
+    "6": 3980,
+    "7": 3968,
+    "8": 3982,
+    "9": 4000,
+    "10": 3984,
+    "11": 3947,
+    "12": 1778
+  },
+  "active_1s_bins": {
+    "threshold_hz": 3500.0,
+    "count": 12,
+    "min": 3820,
+    "max": 4000,
+    "mean": 3966.6666666666665
+  },
+  "axes": {
+    "lx": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 30444
+    },
+    "ly": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 32060
+    },
+    "rx": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 32240
+    },
+    "ry": {
+      "min": -32768,
+      "max": 32767,
+      "distinct_codes": 31056
+    }
+  },
+  "limits": [
+    "Changed output codes do not establish effective sensor bits or physical latency.",
+    "Active bins use an explicit threshold; all observed bins are included for review."
+  ],
+  "native_summary": {
+    "label": "wireless-native-reconnect",
+    "connection": "receiver",
+    "report_count": 95858,
+    "report_ids": {
+      "67": 95858
+    },
+    "all_report_arrivals": {
+      "samples": 95858,
+      "rate_over_span_hz": 3824.711611868663,
+      "median_interval_ms": 0.2498,
+      "p95_interval_ms": 0.3292
+    },
+    "recognized_native_reports": 95858,
+    "native_report_arrivals": {
+      "samples": 95858,
+      "rate_over_span_hz": 3824.711611868663,
+      "median_interval_ms": 0.2498,
+      "p95_interval_ms": 0.3292
+    },
+    "axes": {
+      "lx": {
+        "min": -32768,
+        "max": 32767,
+        "observed_unique_values": 30444
+      },
+      "ly": {
+        "min": -32768,
+        "max": 32767,
+        "observed_unique_values": 32060
+      },
+      "rx": {
+        "min": -32768,
+        "max": 32767,
+        "observed_unique_values": 32240
+      },
+      "ry": {
+        "min": -32768,
+        "max": 32767,
+        "observed_unique_values": 31056
+      }
+    },
+    "left_stick": {
+      "state_changes": 49089,
+      "change_intervals": {
+        "samples": 49089,
+        "rate_over_span_hz": 3978.6588654866564,
+        "median_interval_ms": 0.2498,
+        "p95_interval_ms": 0.2964
+      },
+      "repeated_report_run_lengths": {
+        "1": 48986,
+        "2": 79,
+        "3": 3,
+        "4": 4,
+        "5": 8,
+        "6": 6,
+        "7": 1,
+        "8": 1,
+        "432": 1,
+        "46166": 1
+      }
+    },
+    "right_stick": {
+      "state_changes": 49321,
+      "change_intervals": {
+        "samples": 49321,
+        "rate_over_span_hz": 3977.31530313836,
+        "median_interval_ms": 0.2498,
+        "p95_interval_ms": 0.2964
+      },
+      "repeated_report_run_lengths": {
+        "1": 49216,
+        "2": 78,
+        "3": 3,
+        "4": 4,
+        "5": 8,
+        "6": 8,
+        "7": 1,
+        "8": 1,
+        "10": 1,
+        "140": 1,
+        "46208": 1
+      }
+    },
+    "both_sticks": {
+      "state_changes": 49378,
+      "change_intervals": {
+        "samples": 49378,
+        "rate_over_span_hz": 3978.5426046582234,
+        "median_interval_ms": 0.2498,
+        "p95_interval_ms": 0.2961
+      },
+      "repeated_report_run_lengths": {
+        "1": 49276,
+        "2": 77,
+        "3": 3,
+        "4": 4,
+        "5": 8,
+        "6": 7,
+        "7": 1,
+        "8": 1,
+        "140": 1,
+        "46166": 1
+      }
+    },
+    "button_field_states": {
+      "00000000": 93325,
+      "01000000": 485,
+      "00004000": 573,
+      "00008000": 405,
+      "00000001": 609,
+      "00000002": 461
+    },
+    "limits": [
+      "Movement and quantization affect observed state changes; these are not sensor-sampling measurements.",
+      "Host buffering may bunch read completions.",
+      "This records physical HID reports, not verified Steam-processed output.",
+      "No maximum sensor bit depth or button-to-screen latency is inferred."
+    ]
+  },
+  "button_press_counts": {
+    "A": 1,
+    "B": 0,
+    "L4": 1,
+    "R4": 1,
+    "L5": 1,
+    "R5": 1
+  }
+}

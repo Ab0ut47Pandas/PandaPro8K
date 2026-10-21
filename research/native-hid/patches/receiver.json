@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "id": "receiver",
+  "component": "receiver",
+  "base_version": "1.3.5",
+  "source_name": "GS_G7_Pro_CE_DG_V135_Key.ufw",
+  "size": 1851328,
+  "source_sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+  "result_sha256": "26e7e593fcfabc3c86f98e5888c61a3e6cac38e6d477c5b70b9abb9b61e55767",
+  "changed_package_bytes": 66,
+  "changes": [
+    {
+      "offset": 0,
+      "xor": "7e936152"
+    },
+    {
+      "offset": 68,
+      "xor": "6a99"
+    },
+    {
+      "offset": 548,
+      "xor": "4e99"
+    },
+    {
+      "offset": 5120,
+      "xor": "7508f32b"
+    },
+    {
+      "offset": 5152,
+      "xor": "1594e47e"
+    },
+    {
+      "offset": 21901,
+      "xor": "01"
+    },
+    {
+      "offset": 25054,
+      "xor": "061078052023"
+    },
+    {
+      "offset": 25062,
+      "xor": "b8ea"
+    },
+    {
+      "offset": 25066,
+      "xor": "2024"
+    },
+    {
+      "offset": 25070,
+      "xor": "b8ec"
+    },
+    {
+      "offset": 25074,
+      "xor": "2025"
+    },
+    {
+      "offset": 25078,
+      "xor": "b8ee"
+    },
+    {
+      "offset": 25082,
+      "xor": "202a"
+    },
+    {
+      "offset": 25086,
+      "xor": "b8e0"
+    },
+    {
+      "offset": 1028032,
+      "xor": "7508f32b"
+    },
+    {
+      "offset": 1028064,
+      "xor": "1594e47e"
+    },
+    {
+      "offset": 1044813,
+      "xor": "01"
+    },
+    {
+      "offset": 1047966,
+      "xor": "061078052023"
+    },
+    {
+      "offset": 1047974,
+      "xor": "b8ea"
+    },
+    {
+      "offset": 1047978,
+      "xor": "2024"
+    },
+    {
+      "offset": 1047982,
+      "xor": "b8ec"
+    },
+    {
+      "offset": 1047986,
+      "xor": "2025"
+    },
+    {
+      "offset": 1047990,
+      "xor": "b8ee"
+    },
+    {
+      "offset": 1047994,
+      "xor": "202a"
+    },
+    {
+      "offset": 1047998,
+      "xor": "b8e0"
+    }
+  ]
+}

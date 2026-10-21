@@ -1,0 +1,35 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "all Python sources parse",
+      "count": 18,
+      "passed": true
+    },
+    {
+      "check": "controller exact apply, reverse, CRC/application hash and refusal cases",
+      "passed": true
+    },
+    {
+      "check": "receiver exact apply, reverse, CRC/application hash and refusal cases",
+      "passed": true
+    },
+    {
+      "check": "controller-gate2 exact apply, reverse, CRC/application hash and refusal cases",
+      "passed": true
+    },
+    {
+      "check": "nine sanitized captures reanalyze exactly and reconnect matches final hardware evidence",
+      "passed": true
+    },
+    {
+      "check": "privacy and vendor-binary scan",
+      "files": 78,
+      "passed": true
+    },
+    {
+      "check": "research Markdown links resolve",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "receiverStock",
+    "sha256": "439e185b5e4dc3cf62e359aca82775a878bae9af7a05ce0c904588561c6d262a",
+    "bytes": 1851328,
+    "arch": "ia32",
+    "fileOnly": true,
+    "loadRet": 0,
+    "identityRet": 0,
+    "pid": "GS_G7_Pro_CE_DG",
+    "versionLabel": "1.35",
+    "crcRet": 0,
+    "crc16": "ec4f",
+    "crc32": "42ffa518",
+    "fileAccepted": true
+  },
+  {
+    "mode": "receiverNative",
+    "sha256": "26e7e593fcfabc3c86f98e5888c61a3e6cac38e6d477c5b70b9abb9b61e55767",
+    "bytes": 1851328,
+    "arch": "ia32",
+    "fileOnly": true,
+    "loadRet": 0,
+    "identityRet": 0,
+    "pid": "GS_G7_Pro_CE_DG",
+    "versionLabel": "1.35",
+    "crcRet": 0,
+    "crc16": "ec4f",
+    "crc32": "42ffa518",
+    "fileAccepted": true
+  }
+]

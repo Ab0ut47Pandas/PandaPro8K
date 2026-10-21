@@ -2,6 +2,14 @@
 
 This is the persistent chronological work log. Raw captures are retained alongside it and named by purpose.
 
+## 2026-10-21: native HID firmware tests
+
+Fresh stock 2.2.9 controller / 1.3.5 receiver input measured about 100 changing stick states/sec in native HID. A controller counter change brought the legacy wireless path to about 500 Hz. Removing a separate wired native producer wait then measured about 4,000 fresh states/sec over USB.
+
+A receiver-only patch removes its extended-native rate clamp and reads native axes from the existing fast XInput buffer. After turning the controller off and unplugging/reinserting the receiver, wireless native input measured 3,978.5 fresh changes/sec with a 0.2498-ms median interval. All four independent extras remain available. Normal wired/wireless XInput checks and normal configuration reads passed.
+
+Exact package deltas, application offsets, source/result hashes, sanitized captures, offline tools and limits are published under [research/native-hid](research/native-hid/README.md). These are short functional results on one unit, not measured sensor bits, battery life or end-to-end game latency. Stock packages are preserved; a post-modification stock restore has not been tested.
+
 ## 2026-08-24 — Initial Logo+A characterization
 
 ### Environment

@@ -1,0 +1,25 @@
+Disassembly of section .text:
+.text:
+ 6004dda:    01 e1 1f 62        r1 = r6 + 0x21f
+ 6004dde:    03 e1 50 60        r3 = r6 + 0x50
+ 6004de2:    3a 60              r2 = h[r3+0x0] (u)
+ 6004de4:    da 48              b[r5+0x8] = r2
+ 6004de6:    a2 a8              r2 = r2 >> 0x8
+ 6004de8:    da 47              b[r5+0x7] = r2
+ 6004dea:    3a 61              r2 = h[r3+0x2] (u)
+ 6004dec:    da 4a              b[r5+0xa] = r2
+ 6004dee:    a2 a8              r2 = r2 >> 0x8
+ 6004df0:    da 49              b[r5+0x9] = r2
+ 6004df2:    3a 62              r2 = h[r3+0x4] (u)
+ 6004df4:    da 4c              b[r5+0xc] = r2
+ 6004df6:    a2 a8              r2 = r2 >> 0x8
+ 6004df8:    da 4b              b[r5+0xb] = r2
+ 6004dfa:    3a 63              r2 = h[r3+0x6] (u)
+ 6004dfc:    da 4e              b[r5+0xe] = r2
+ 6004dfe:    a2 a8              r2 = r2 >> 0x8
+ 6004e00:    da 4d              b[r5+0xd] = r2
+
+
+.data:
+
+.data_code:
