@@ -2,7 +2,7 @@
 
 ## HIDMaestro
 
-The current bridge uses HIDMaestro as a Git submodule. HIDMaestro is licensed under the MIT License. Its copyright and complete license text are kept in `vendor/HIDMaestro/LICENSE`.
+The current bridge uses HIDMaestro as a Git submodule. HIDMaestro is licensed under the MIT License. Release ZIPs include its complete copyright and license text in `HIDMaestro.LICENSE.txt`, beside `HIDMaestro.Core.dll`. The source copy is `vendor/HIDMaestro/LICENSE`.
 
 Upstream project: <https://github.com/hifihedgehog/HIDMaestro>
 
