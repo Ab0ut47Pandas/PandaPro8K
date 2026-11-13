@@ -36,8 +36,8 @@ If Windows offers to format a recovery drive, **cancel**. It isn't an ordinary s
 
 We preserved and hash-checked the original stock packages. The vendor file validator accepted the stock receiver package. Both devices entered recovery, accepted the modified images and booted back into normal operation. The receiver paired again without a manual re-pair, then passed another cold reconnection test.
 
-We have **not** reflashed stock after these changes, tested a downgrade to an older release, interrupted a flash, or recovered a deliberately broken image. There is no tested one-click restore in this release. The original one-off flashing helpers were tied to this PC's live USB identity and are not distributed as a general-purpose flasher.
+We have **not** reflashed stock after these changes, tested a downgrade to an older release, interrupted a flash, or recovered a deliberately broken image. There is no tested one-click restore. The [experimental flashing guide](flashing.md) includes a reusable helper for the patched images and documents its test limits.
 
 A version number alone won't identify the modified firmware. Controller 2.2.9 and receiver 1.3.5 remain the reported labels. For review and restoration, use the complete file hashes.
 
-The release ships the reviewed patch deltas and offline tools, not full vendor firmware or GameSir's updater DLLs. This lets other people inspect and reproduce the files without turning a one-unit experiment into an unattended flashing utility.
+The October 21 research release ships the reviewed patch deltas and offline tools. The flashing helper uses the updater DLL from your own GameSir Connect installation. Full vendor firmware and updater DLLs are supplied by GameSir.

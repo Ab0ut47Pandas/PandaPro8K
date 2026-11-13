@@ -36,6 +36,7 @@ The final controller package differs from stock by 32 bytes and the receiver pac
 
 - [Results and how we counted them](docs/results.md)
 - [Firmware changes, offsets and hashes](docs/patches.md)
+- [Experimental flashing guide for Windows](docs/flashing.md)
 - [Native packet layout and the two wireless paths](docs/protocol.md)
 - [Restoring stock and what recovery actually does](docs/recovery.md)
 - [8BitDo, Steam limits, polling and resolution](docs/other-findings.md)
@@ -55,6 +56,8 @@ py -3 tools/patch_firmware.py apply receiver "C:\path\to\GS_G7_Pro_CE_DG_V135_Ke
 ```
 
 **These commands create files. They do not flash anything.** Read [recovery.md](docs/recovery.md) before considering a hardware update. A bad flash can leave the device unusable. We preserved stock packages and entered recovery successfully, but have not tested flashing stock back after these modifications. There is no tested automatic rollback.
+
+To proceed with a hardware update, follow the [experimental flashing guide](docs/flashing.md). It starts with a read-only preflight for each device.
 
 The release includes the tools and a separate ZIP of sanitized input recordings. Controller serials, Windows device paths and USB topology were removed. The timestamps and input payloads in those recordings are unchanged.
 

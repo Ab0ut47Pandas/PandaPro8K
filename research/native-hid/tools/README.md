@@ -15,6 +15,10 @@ py -3 tools/patch_firmware.py apply receiver "C:\path\to\GS_G7_Pro_CE_DG_V135_Ke
 
 `--reverse` on the `apply` command reconstructs stock from the exact patched file. The tool never opens a device, launches an updater or overwrites the input. It refuses unknown hashes and existing output files. [Recovery details](../docs/recovery.md).
 
+## Experimental hardware updater
+
+Use the [flashing guide](../docs/flashing.md) to prepare the exact firmware files and identify the correct recovery drive. `flash_firmware.py` runs the bundled GameSir Connect updater locally. It defaults to preflight and requires `--write` to flash.
+
 ## Visual native tester
 
 ```powershell
